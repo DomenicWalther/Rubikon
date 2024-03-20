@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
-/frontend/build
-/frontend/.svelte-kit
+build
+.svelte-kit
 /frontend/package
 .env
 .env.*
