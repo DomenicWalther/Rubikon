@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	let hours = 0;
 	let minutes = 0;
 	let seconds = 5;
@@ -17,6 +18,10 @@
 			seconds = 59;
 		}
 	};
+
+	onMount(async () => {
+		setInterval(removeSecond, 1000);
+	});
 </script>
 
 <h2>Timer</h2>
