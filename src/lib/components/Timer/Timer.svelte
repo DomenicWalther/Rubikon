@@ -4,6 +4,8 @@
 	let minutes = 0;
 	let seconds = 5;
 	let totalSeconds: number;
+	let intervalID: number | undefined;
+
 	$: totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
 	const removeSecond = () => {
@@ -20,8 +22,12 @@
 	};
 
 	onMount(async () => {
-		setInterval(removeSecond, 1000);
+		intervalID = setInterval(removeSecond, 1000);
 	});
+
+	$: if (totalSeconds === 0) {
+		clearInterval(intervalID);
+	}
 </script>
 
 <h2>Timer</h2>
