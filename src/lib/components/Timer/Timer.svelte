@@ -21,22 +21,34 @@
 		}
 	};
 
-	onMount(async () => {
-		intervalID = setInterval(removeSecond, 1000);
-	});
+	//	onMount(async () => {
+	//		intervalID = setInterval(removeSecond, 1000);
+	//	});
 
 	$: if (totalSeconds === 0) {
 		clearInterval(intervalID);
 	}
 </script>
 
-<h2>Timer</h2>
+<section class="flex items-center justify-center flex-col">
+	<h2>Timer</h2>
 
-<p>Countdown:</p>
-<p>{hours} Stunden</p>
-<p>{minutes} Minuten</p>
-<p>{seconds} Sekunden</p>
-<p>{totalSeconds} Totale Sekunden</p>
-
-<button on:click={removeSecond}>Remove a second</button>
-
+	<p>Countdown:</p>
+	<div class="flex gap-20 text-3xl font-bold mt-20">
+		<div class="flex flex-col justify-center items-center">
+			<button on:click={() => (hours += 1)}>+</button>
+			<p>{hours} Stunden</p>
+			<button on:click={() => (hours -= 1)}>-</button>
+		</div>
+		<div class="flex flex-col justify-center items-center">
+			<button on:click={() => (minutes += 1)}>+</button>
+			<p>{minutes} Minuten</p>
+			<button on:click={() => (minutes -= 1)}>-</button>
+		</div>
+		<div class="flex flex-col justify-center items-center">
+			<button on:click={() => (seconds += 1)}>+</button>
+			<p>{seconds} Sekunden</p>
+			<button on:click={() => (seconds -= 1)}>-</button>
+		</div>
+	</div>
+</section>
