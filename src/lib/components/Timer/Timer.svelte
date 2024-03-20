@@ -4,7 +4,7 @@
 	let seconds = 5;
 	let totalSeconds: number;
 	let intervalID: number | undefined;
-
+	let lastTimer: number;
 	$: totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
 	const removeSecond = () => {
@@ -21,7 +21,15 @@
 	};
 
 	const startTimer = () => {
+		lastTimer = totalSeconds;
 		intervalID = setInterval(removeSecond, 1000);
+	};
+
+	const resetTimer = () => {
+		clearInterval(intervalID);
+		hours = Math.floor(lastTimer / 3600);
+		minutes = Math.floor((lastTimer % 3600) / 60);
+		seconds = lastTimer % 60;
 	};
 
 	$: if (totalSeconds === 0) {
@@ -52,4 +60,5 @@
 	</div>
 
 	<button class="text-2xl mt-10" on:click={() => startTimer()}>Start Timer</button>
+	<button class="text-2xl mt-10" on:click={() => resetTimer()}>Reset Timer</button>
 </section>
