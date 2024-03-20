@@ -1,12 +1,21 @@
 <script lang="ts">
 	let hours = 0;
-	let minutes = 59;
-	let seconds = 30;
-	let totalSeconds;
+	let minutes = 0;
+	let seconds = 5;
+	let totalSeconds: number;
 	$: totalSeconds = hours * 3600 + minutes * 60 + seconds;
 
 	const removeSecond = () => {
-		seconds -= 1;
+		if (seconds > 0) {
+			seconds--;
+		} else if (minutes > 0) {
+			minutes--;
+			seconds = 59;
+		} else if (hours > 0) {
+			hours--;
+			minutes = 59;
+			seconds = 59;
+		}
 	};
 </script>
 
