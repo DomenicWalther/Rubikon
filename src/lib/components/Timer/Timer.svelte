@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	let hours = 0;
 	let minutes = 0;
 	let seconds = 5;
@@ -21,9 +20,9 @@
 		}
 	};
 
-	//	onMount(async () => {
-	//		intervalID = setInterval(removeSecond, 1000);
-	//	});
+	const startTimer = () => {
+		intervalID = setInterval(removeSecond, 1000);
+	};
 
 	$: if (totalSeconds === 0) {
 		clearInterval(intervalID);
@@ -51,4 +50,6 @@
 			<button on:click={() => (seconds -= 1)}>-</button>
 		</div>
 	</div>
+
+	<button class="text-2xl mt-10" on:click={() => startTimer()}>Start Timer</button>
 </section>
