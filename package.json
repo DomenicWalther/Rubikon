@@ -1,0 +1,11 @@
+{
+	"name": "rubikon-monorepo",
+	"version": "1.0.0",
+	"description": "Monorepo for Rubikon",
+	"scripts": {
+		"start": "concurrently \"cd frontend && npm run dev\" \"cd backend && go run server.go\""
+	},
+	"devDependencies": {
+		"concurrently": "^8.2.2"
+	}
+}
