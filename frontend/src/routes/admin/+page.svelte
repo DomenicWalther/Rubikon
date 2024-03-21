@@ -4,7 +4,7 @@
 </script>
 
 <SignedIn let:user>
-	<p>Welcome, {user?.fullName ?? 'buddy'}!</p>
+	<p>Welcome, {user?.username ?? 'buddy'}!</p>
 	<p>You are in the admin panel.</p>
 	<UserProfile />
 </SignedIn>
