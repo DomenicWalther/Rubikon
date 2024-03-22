@@ -57,7 +57,7 @@
 </script>
 
 <section class="flex items-center justify-center flex-col">
-	<h2 class=" font-bold text-9xl">Timer</h2>
+	<h2 class=" font-bold text-7xl">Timer</h2>
 
 	<p>Countdown:</p>
 	<div class="flex gap-20 text-3xl font-bold mt-20">
