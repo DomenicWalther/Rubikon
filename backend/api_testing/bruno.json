@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Rubikon",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

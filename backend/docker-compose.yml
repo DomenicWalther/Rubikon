@@ -9,7 +9,7 @@ services:
       - 3000:3000
     volumes:
       - .:/usr/src/app
-    command: air server.go
+    command: air ./cmd/main.go
   db:
     image: postgres:alpine
     environment:

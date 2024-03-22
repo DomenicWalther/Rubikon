@@ -11,5 +11,6 @@ vite.config.ts.timestamp-*
 *storybook.log
 package-lock.json
 /backend/tmp
+/backend/cmd/tmp
 /backend/pre_cmd.txt
 /backend/post_cmd.txt
