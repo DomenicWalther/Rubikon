@@ -8,7 +8,4 @@ build
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
-/backend/post_cmd.txt
-/backend/pre_cmd.txt
-/backend/tmp
 *storybook.log
