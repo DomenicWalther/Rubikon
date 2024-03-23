@@ -38,7 +38,7 @@ func ConnectDB() {
 	db.Logger = logger.Default.LogMode(logger.Info)
 
 	log.Println("Migrating database...")
-	db.AutoMigrate(&models.Fact{})
-
+	db.Migrator().DropTable(&models.Skin{}, &models.User{}, &models.Streak{})
+	db.AutoMigrate(&models.Skin{}, &models.User{}, &models.Streak{})
 	DB = Dbinstance{Db: db}
 }
