@@ -5,8 +5,10 @@
 	let totalSeconds: number;
 	let intervalID: ReturnType<typeof setInterval> | undefined;
 	let lastTimer: number;
+	const SECONDS_IN_HOUR = 3600;
+	const SECONDS_IN_MINUTE = 60;
 	let isRunning: boolean = false;
-	$: totalSeconds = hours * 3600 + minutes * 60 + seconds;
+	$: totalSeconds = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
 
 	const removeSecond = () => {
 		if (seconds > 0) {
@@ -32,9 +34,9 @@
 	const resetTimer = () => {
 		isRunning = false;
 		clearInterval(intervalID);
-		hours = Math.floor(lastTimer / 3600);
-		minutes = Math.floor((lastTimer % 3600) / 60);
-		seconds = lastTimer % 60;
+		hours = Math.floor(lastTimer / SECONDS_IN_HOUR);
+		minutes = Math.floor((lastTimer % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
+		seconds = lastTimer % SECONDS_IN_MINUTE;
 	};
 
 	const adjustTime = (timeType: string, value: number) => {
