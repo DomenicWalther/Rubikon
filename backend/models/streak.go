@@ -14,5 +14,6 @@ type Streak struct {
 	StreakLength        int  `gorm:"not null;default:0"`
 	IsUserCurrentStreak bool `gorm:"not null;default:true"`
 	LastStreakDate      time.Time
+	PreviousStreakID    *uuid.UUID `gorm:"type:uuid;"`
 	UserID              uuid.UUID `gorm:"type:uuid;not null"`
 }
