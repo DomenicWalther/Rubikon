@@ -1,4 +1,6 @@
 <script lang="ts">
+	import TimerControls from './TimerControls.svelte';
+
 	let hours = 0;
 	let minutes = 0;
 	let seconds = 5;
@@ -63,21 +65,24 @@
 
 	<p>Countdown:</p>
 	<div class="flex gap-20 text-3xl font-bold mt-20">
-		<div class="flex flex-col justify-center items-center">
-			<button on:click={() => adjustTime('hours', 1)}>+</button>
-			<p>{hours} Stunden</p>
-			<button on:click={() => adjustTime('hours', -1)}>-</button>
-		</div>
-		<div class="flex flex-col justify-center items-center">
-			<button on:click={() => adjustTime('minutes', 1)}>+</button>
-			<p>{minutes} Minuten</p>
-			<button on:click={() => adjustTime('minutes', -1)}>-</button>
-		</div>
-		<div class="flex flex-col justify-center items-center">
-			<button on:click={() => adjustTime('seconds', 1)}>+</button>
-			<p>{seconds} Sekunden</p>
-			<button on:click={() => adjustTime('seconds', -1)}>-</button>
-		</div>
+		<TimerControls
+			label="Stunden"
+			value={hours}
+			increment={() => adjustTime('hours', 1)}
+			decrement={() => adjustTime('hours', -1)}
+		/>
+		<TimerControls
+			label="Minuten"
+			value={minutes}
+			increment={() => adjustTime('minutes', 1)}
+			decrement={() => adjustTime('minutes', -1)}
+		/>
+		<TimerControls
+			label="Sekunden"
+			value={seconds}
+			increment={() => adjustTime('seconds', 1)}
+			decrement={() => adjustTime('seconds', -1)}
+		/>
 	</div>
 
 	<button class="text-2xl mt-10" on:click={() => startTimer()}>Start Timer</button>
