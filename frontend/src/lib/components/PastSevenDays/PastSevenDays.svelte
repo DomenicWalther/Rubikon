@@ -4,8 +4,7 @@
 		isStreak: boolean;
 	}
 
-	export let streakLength: number = Math.min(4, 7);
-	const today = new Date();
+	export let streakLength: number = 1;
 	const weekdayNames = [
 		'Sonntag',
 		'Montag',
@@ -16,14 +15,16 @@
 		'Samstag'
 	];
 	let allWeekDays: weekDayObject[] = [];
-	const todaysIndex = today.getDay();
+	const todaysIndex = new Date().getDay() - 1;
 	for (let i = 0; i < 7; i++) {
-		allWeekDays.push({ label: weekdayNames[(todaysIndex + i) % 7].slice(0, 2), isStreak: false });
+		allWeekDays.push({ label: weekdayNames[(i + 1) % 7].slice(0, 2), isStreak: false });
 	}
 
-	allWeekDays.push(allWeekDays.shift() as weekDayObject);
-	for (let i = 0; i < streakLength; i++) {
-		allWeekDays[6 - i].isStreak = true;
+	for (let i = todaysIndex; i >= 0; i--) {
+		if (streakLength > 0) {
+			allWeekDays[i].isStreak = true;
+			streakLength -= 1;
+		}
 	}
 </script>
 
