@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TimerControls from './TimerControls.svelte';
+	import { PastSevenDays } from '$lib/components';
 	import * as Dialog from '$lib/components/shadcn/ui/dialog';
 
 	let hours = 0;
@@ -8,7 +9,7 @@
 	let totalSeconds: number;
 	let intervalID: ReturnType<typeof setInterval> | undefined;
 	let lastTimer: number;
-	let dialogOpen = false;
+	let dialogOpen = true;
 	const SECONDS_IN_HOUR = 3600;
 	const SECONDS_IN_MINUTE = 60;
 	let isRunning: boolean = false;
@@ -108,7 +109,9 @@
 		<Dialog.Content>
 			<Dialog.Header>
 				<Dialog.Title>Herzlichen Glückwunsch</Dialog.Title>
-				<Dialog.Description>Deine Streak ist jetzt bei 1. Weiter so!</Dialog.Description>
+				<Dialog.Description
+					>Du hast 1 Tag produktiv gearbeitet. Mach weiter so.<PastSevenDays /></Dialog.Description
+				>
 			</Dialog.Header>
 		</Dialog.Content>
 	</Dialog.Root>
