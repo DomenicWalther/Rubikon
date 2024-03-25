@@ -17,5 +17,5 @@ type User struct {
 	Experience int            `json:"experience" gorm:"not null;default:0"`
 	Currency   int            `json:"currency" gorm:"not null;default:0"`
 	Skins      []Skin         `gorm:"many2many:user_skins;"`
-	Streaks    []Streak       `gorm:"foreignKey:UserID;references:ID"`
+	Streaks    []Streak       `gorm:"foreignKey:UserID;references:User_ID"`
 }
