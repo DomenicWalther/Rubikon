@@ -29,16 +29,18 @@
 		if (!isRunning) {
 			isRunning = true;
 			lastTimer = totalSeconds;
-			intervalID = setInterval(removeSecond, 1000);
+			intervalID = setInterval(removeSecond, 100);
 		}
 	};
 
 	const resetTimer = () => {
 		isRunning = false;
 		clearInterval(intervalID);
+		totalSeconds = lastTimer;
 		hours = Math.floor(lastTimer / SECONDS_IN_HOUR);
 		minutes = Math.floor((lastTimer % SECONDS_IN_HOUR) / SECONDS_IN_MINUTE);
 		seconds = lastTimer % SECONDS_IN_MINUTE;
+		lastTimer = totalSeconds;
 	};
 
 	const adjustTime = (timeType: string, value: number) => {
@@ -54,10 +56,22 @@
 				break;
 		}
 	};
-	$: if (totalSeconds === 0) {
-		isRunning = false;
-		clearInterval(intervalID);
+	$: if (totalSeconds === 0 && isRunning) {
+		handleUserStreakAfterTimer();
+		resetTimer();
 	}
+
+	const handleUserStreakAfterTimer = async () => {
+		const response = await fetch('http://localhost:3000/Users/manage-daily-streak', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${await Clerk.session.getToken()}`
+			}
+		});
+		const data = await response.json();
+		console.log(data);
+	};
 </script>
 
 <section class="flex items-center justify-center flex-col">
