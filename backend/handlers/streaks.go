@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"errors"
+	"time"
 
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
@@ -18,6 +19,20 @@ func ManageDailyStreak(c *fiber.Ctx) error {
 		createFirstStreak(c.Locals("sub").(string))
 	}
 	return c.Status(200).JSON(currentUserStreak)
+}
+
+func checkStreakDate(streak *models.Streak) string {
+	now := time.Now()
+	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
+	yesterday := today.AddDate(0, 0, -1)
+
+	if streak.LastStreakDate.After(yesterday) && streak.LastStreakDate.Before(today) {
+		return "Yesterday"
+	} else if streak.LastStreakDate.Equal(today) || streak.LastStreakDate.After(today) {
+		return "Today"
+	} else {
+		return "Older"
+	}
 }
 
 func getCurrentStreak(userID string) (*models.Streak, error) {
