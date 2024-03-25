@@ -5,19 +5,11 @@
 	}
 
 	export let streakLength: number = 1;
-	const weekdayNames = [
-		'Sonntag',
-		'Montag',
-		'Dienstag',
-		'Mittwoch',
-		'Donnerstag',
-		'Freitag',
-		'Samstag'
-	];
+	const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 	let allWeekDays: weekDayObject[] = [];
 	const todaysIndex = new Date().getDay() - 1;
 	for (let i = 0; i < 7; i++) {
-		allWeekDays.push({ label: weekdayNames[(i + 1) % 7].slice(0, 2), isStreak: false });
+		allWeekDays.push({ label: weekdayNames[(i + 1) % 7], isStreak: false });
 	}
 
 	for (let i = todaysIndex; i >= 0; i--) {
