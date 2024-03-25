@@ -9,11 +9,12 @@
 	let totalSeconds: number;
 	let intervalID: ReturnType<typeof setInterval> | undefined;
 	let lastTimer: number;
-	let dialogOpen = true;
+	let dialogOpen = false;
 	const SECONDS_IN_HOUR = 3600;
 	const SECONDS_IN_MINUTE = 60;
 	let isRunning: boolean = false;
 	$: totalSeconds = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
+	let streakLength = 0;
 
 	const removeSecond = () => {
 		if (seconds > 0) {
@@ -73,8 +74,10 @@
 			}
 		});
 		const data = await response.json();
-		dialogOpen = true;
-		console.log(data);
+		if (data != 'You already increased your streak today') {
+			dialogOpen = true;
+		}
+		streakLength = data.StreakLength;
 	};
 </script>
 
@@ -110,7 +113,10 @@
 			<Dialog.Header>
 				<Dialog.Title>Herzlichen Glückwunsch</Dialog.Title>
 				<Dialog.Description
-					>Du hast 1 Tag produktiv gearbeitet. Mach weiter so.<PastSevenDays /></Dialog.Description
+					>Du hast {streakLength}
+					{streakLength > 1 ? 'Tage' : 'Tag'} produktiv gearbeitet. Mach weiter so.<PastSevenDays
+						{streakLength}
+					/></Dialog.Description
 				>
 			</Dialog.Header>
 		</Dialog.Content>
