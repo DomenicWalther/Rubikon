@@ -1,5 +1,6 @@
 <script lang="ts">
 	import TimerControls from './TimerControls.svelte';
+	import * as Dialog from '$lib/components/shadcn/ui/dialog';
 
 	let hours = 0;
 	let minutes = 0;
@@ -7,6 +8,7 @@
 	let totalSeconds: number;
 	let intervalID: ReturnType<typeof setInterval> | undefined;
 	let lastTimer: number;
+	let dialogOpen = false;
 	const SECONDS_IN_HOUR = 3600;
 	const SECONDS_IN_MINUTE = 60;
 	let isRunning: boolean = false;
@@ -70,6 +72,7 @@
 			}
 		});
 		const data = await response.json();
+		dialogOpen = true;
 		console.log(data);
 	};
 </script>
@@ -101,4 +104,12 @@
 
 	<button class="text-2xl mt-10" on:click={() => startTimer()}>Start Timer</button>
 	<button class="text-2xl mt-10" on:click={() => resetTimer()}>Reset Timer</button>
+	<Dialog.Root bind:open={dialogOpen}>
+		<Dialog.Content>
+			<Dialog.Header>
+				<Dialog.Title>Herzlichen Glückwunsch</Dialog.Title>
+				<Dialog.Description>Deine Streak ist jetzt bei 1. Weiter so!</Dialog.Description>
+			</Dialog.Header>
+		</Dialog.Content>
+	</Dialog.Root>
 </section>
