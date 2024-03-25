@@ -18,7 +18,7 @@ func ManageDailyStreak(c *fiber.Ctx) error {
 	if currentUserStreak == nil {
 		createFirstStreak(c.Locals("sub").(string))
 	}
-	switch lastStreakDate := checkStreakDate(currentUserStreak); lastStreakDate {
+	switch lastStreakDate := determineStreakAction(currentUserStreak); lastStreakDate {
 	case "Today":
 		return c.Status(200).JSON("You already increased your streak today")
 	case "Yesterday":
@@ -39,7 +39,7 @@ func ManageDailyStreak(c *fiber.Ctx) error {
 	return c.Status(200).JSON(currentUserStreak)
 }
 
-func checkStreakDate(streak *models.Streak) string {
+func determineStreakAction(streak *models.Streak) string {
 	now := time.Now()
 	today := time.Date(now.Year(), now.Month(), now.Day(), 0, 0, 0, 0, now.Location())
 	yesterday := today.AddDate(0, 0, -1)
