@@ -12,4 +12,6 @@ func setupRoutes(app *fiber.App) {
 	app.Post("/foo", middleware.JWTMiddleware(), func(c *fiber.Ctx) error {
 		return c.SendString(c.Locals("sub").(string) + " " + c.Locals("sid").(string))
 	})
+	app.Get("/User", handlers.GetUser)
+	app.Post("/Users/manage-daily-streak", middleware.JWTMiddleware(), handlers.ManageDailyStreak)
 }

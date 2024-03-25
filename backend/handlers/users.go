@@ -26,3 +26,10 @@ func CreateUser(c *fiber.Ctx) error {
 
 	return c.Status(200).JSON(user)
 }
+
+func GetUser(c *fiber.Ctx) error {
+	result := map[string]interface{}{}
+
+	database.DB.Db.Model(&models.User{}).First(&result)
+	return c.Status(200).JSON(&result)
+}
