@@ -18,6 +18,24 @@ func ManageDailyStreak(c *fiber.Ctx) error {
 	if currentUserStreak == nil {
 		createFirstStreak(c.Locals("sub").(string))
 	}
+	switch lastStreakDate := checkStreakDate(currentUserStreak); lastStreakDate {
+	case "Today":
+		return c.Status(200).JSON("You already increased your streak today")
+	case "Yesterday":
+		err := increaseUserStreak(currentUserStreak)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+		}
+	case "Older":
+		err := resetStreak(currentUserStreak)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+		}
+		err = createNewStreak(currentUserStreak)
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
+		}
+	}
 	return c.Status(200).JSON(currentUserStreak)
 }
 
@@ -35,6 +53,31 @@ func checkStreakDate(streak *models.Streak) string {
 	}
 }
 
+func resetStreak(streak *models.Streak) error {
+	streak.IsUserCurrentStreak = false
+	streak.StreakEnd = &streak.LastStreakDate
+	database.DB.Db.Save(&streak)
+
+	return nil
+}
+
+func createNewStreak(streak *models.Streak) error {
+	newStreak := new(models.Streak)
+	newStreak.UserID = streak.UserID
+	newStreak.StreakStart = time.Now()
+	newStreak.IsUserCurrentStreak = true
+	newStreak.PreviousStreakID = &streak.ID
+	database.DB.Db.Create(&newStreak)
+
+	return nil
+}
+
+func increaseUserStreak(streak *models.Streak) error {
+	streak.StreakLength++
+	streak.LastStreakDate = time.Now()
+	database.DB.Db.Save(&streak)
+	return nil
+}
 func getCurrentStreak(userID string) (*models.Streak, error) {
 	var currentStreak models.Streak
 
