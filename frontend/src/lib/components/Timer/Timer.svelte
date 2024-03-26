@@ -12,7 +12,7 @@
 	async function processUserUpdatesAndShowDialog(userExperience: number) {
 		const response = await processUserUpdates(userExperience);
 		toast('Du hast ' + userExperience + ' Erfahrungspunkte erhalten.');
-		streakLength = response.streakLength;
+		streakLength = response.StreakLength;
 		if (response != 'You already increased your streak today') {
 			dialogOpen = true;
 		}
