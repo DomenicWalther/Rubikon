@@ -8,11 +8,11 @@ import (
 )
 
 type User struct {
-	ID         uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();primary_key;unique"`
+	ID         uuid.UUID `gorm:"type:uuid;default:gen_random_uuid();unique"`
 	CreatedAt  time.Time
 	UpdatedAt  time.Time
 	DeletedAt  gorm.DeletedAt `gorm:"index"`
-	User_ID    string         `json:"id" gorm:"primary_key;unique"`
+	User_ID    string         `json:"id" gorm:"primaryKey;unique"`
 	Level      int            `json:"level" gorm:"not null;default:1"`
 	Experience int            `json:"experience" gorm:"not null;default:0"`
 	Currency   int            `json:"currency" gorm:"not null;default:0"`
