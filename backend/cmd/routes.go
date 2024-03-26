@@ -13,5 +13,5 @@ func setupRoutes(app *fiber.App) {
 		return c.SendString(c.Locals("sub").(string) + " " + c.Locals("sid").(string))
 	})
 	app.Get("/User", handlers.GetUser)
-	app.Post("/Users/manage-daily-streak", middleware.JWTMiddleware(), handlers.ManageDailyStreak)
+	app.Post("/Users/process-user-progress", middleware.JWTMiddleware(), handlers.ProcessUserProgress)
 }
