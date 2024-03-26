@@ -1,6 +1,6 @@
 
 export const processUserUpdates = async (userExperience: number) => {
-		const response = await fetch('http://localhost:3000/Users/manage-daily-streak', {
+		const response = await fetch('http://localhost:3000/Users/process-user-progress', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
