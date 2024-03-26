@@ -2,6 +2,8 @@
 	import TimerControls from './TimerControls.svelte';
 	import { PastSevenDays } from '$lib/components';
 	import * as Dialog from '$lib/components/shadcn/ui/dialog';
+	import { Toaster } from '$lib/components/shadcn/ui/sonner';
+	import { toast } from 'svelte-sonner';
 
 	let hours = 0;
 	let minutes = 0;
@@ -33,7 +35,7 @@
 		if (!isRunning) {
 			isRunning = true;
 			lastTimer = totalSeconds;
-			intervalID = setInterval(removeSecond, 100);
+			intervalID = setInterval(removeSecond, 20);
 		}
 	};
 
@@ -61,11 +63,12 @@
 		}
 	};
 	$: if (totalSeconds === 0 && isRunning) {
-		handleUserStreakAfterTimer();
+		let userExperience = lastTimer - totalSeconds;
+		processUserUpdates(userExperience);
 		resetTimer();
 	}
 
-	const handleUserStreakAfterTimer = async () => {
+	const processUserUpdates = async (userExperience: number) => {
 		const response = await fetch('http://localhost:3000/Users/manage-daily-streak', {
 			method: 'POST',
 			headers: {
@@ -77,10 +80,12 @@
 		if (data != 'You already increased your streak today') {
 			dialogOpen = true;
 		}
+		toast('Du hast ' + userExperience + ' Erfahrungspunkte verdient');
 		streakLength = data.StreakLength;
 	};
 </script>
 
+<Toaster />
 <section class="flex items-center justify-center flex-col">
 	<h2 class=" font-bold text-7xl">Timer</h2>
 
