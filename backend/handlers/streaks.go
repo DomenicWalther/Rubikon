@@ -11,8 +11,16 @@ import (
 	"gorm.io/gorm"
 )
 
-func ManageDailyStreak(c *fiber.Ctx) error {
-	currentUserStreak, err := getCurrentStreak(c.Locals("sub").(string))
+type processUserUpdateBody struct {
+	UserExperience int `json:"userExperience"`
+}
+
+func ProcessUserProgress(c *fiber.Ctx) error {
+	userID := c.Locals("sub").(string)
+	fmt.Println("UserID: ", userID)
+	updateUserExperience(c, userID)
+
+	currentUserStreak, err := getCurrentStreak(userID)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
 	}
@@ -34,6 +42,17 @@ func ManageDailyStreak(c *fiber.Ctx) error {
 		currentUserStreak = createNewStreak(currentUserStreak)
 	}
 	return c.Status(200).JSON(currentUserStreak)
+}
+
+func updateUserExperience(c *fiber.Ctx, userID string) error {
+	exp := new(processUserUpdateBody)
+
+	if err := c.BodyParser(exp); err != nil {
+		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+	}
+
+	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("experience", gorm.Expr("experience + ?", exp.UserExperience))
+	return nil
 }
 
 func determineStreakAction(streak *models.Streak) string {
