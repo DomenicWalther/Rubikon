@@ -3,6 +3,7 @@ package handlers
 import (
 	"errors"
 	"fmt"
+	"math"
 	"time"
 
 	"github.com/domenicwalther/rubikon/backend/database"
@@ -15,22 +16,29 @@ type processUserUpdateBody struct {
 	UserExperience int `json:"userExperience"`
 }
 
+type processUserUpdateResponse struct {
+	StreakLength     int `json:"streakLength"`
+	GainedExperience int `json:"gainedExperience"`
+}
+
 func ProcessUserProgress(c *fiber.Ctx) error {
 	userID := c.Locals("sub").(string)
 	fmt.Println("UserID: ", userID)
-	updateUserExperience(c, userID)
 
+	rubikonLength := new(processUserUpdateBody)
+
+	if err := c.BodyParser(rubikonLength); err != nil {
+		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
+	}
 	currentUserStreak, err := getCurrentStreak(userID)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).SendString(err.Error())
 	}
 	if currentUserStreak == nil {
 		currentUserStreak = createFirstStreak(c.Locals("sub").(string))
-		return c.Status(200).JSON(currentUserStreak)
 	}
 	switch lastStreakDate := determineStreakAction(currentUserStreak); lastStreakDate {
-	case "Today":
-		return c.Status(200).JSON("You already increased your streak today")
+
 	case "Yesterday":
 		currentUserStreak = increaseUserStreak(currentUserStreak)
 
@@ -41,18 +49,27 @@ func ProcessUserProgress(c *fiber.Ctx) error {
 		}
 		currentUserStreak = createNewStreak(currentUserStreak)
 	}
-	return c.Status(200).JSON(currentUserStreak)
+	experienceGain := calculateUserExperience(rubikonLength.UserExperience, currentUserStreak.StreakLength)
+	updateUserExperience(experienceGain, userID)
+
+	response := new(processUserUpdateResponse)
+	response.StreakLength = currentUserStreak.StreakLength
+	response.GainedExperience = experienceGain
+	return c.Status(200).JSON(response)
 }
 
-func updateUserExperience(c *fiber.Ctx, userID string) error {
-	exp := new(processUserUpdateBody)
-
-	if err := c.BodyParser(exp); err != nil {
-		return c.Status(fiber.StatusBadRequest).SendString(err.Error())
-	}
-
-	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("experience", gorm.Expr("experience + ?", exp.UserExperience))
+func updateUserExperience(experience int, userID string) error {
+	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("experience", gorm.Expr("experience + ?", experience))
 	return nil
+}
+
+func calculateUserExperience(experience, streakLength int) int {
+	experience = experience / 60
+	gain := int(math.Ceil(float64(experience) * math.Log(math.Pow(float64(streakLength), 1.2))))
+	if gain > experience {
+		return gain
+	}
+	return experience
 }
 
 func determineStreakAction(streak *models.Streak) string {
