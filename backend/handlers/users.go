@@ -3,6 +3,9 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
+	"io"
+	"net/http"
+	"os"
 	"strings"
 
 	"github.com/domenicwalther/rubikon/backend/database"
@@ -71,13 +74,34 @@ func appendUserIDsToURL(baseURL string, userIDs []string) (string, error) {
 }
 
 func fetchTopUserData(userIds []string) error {
-	//agent := fiber.Get("https://api.clerk.com/v1/users")
-	// agent.Add("Authorization", fmt.Sprintf("Bearer %s", os.Getenv("CLERK_SECRET")))
 	baseURL := "https://api.clerk.com/v1/users"
 	newURL, err := appendUserIDsToURL(baseURL, userIds)
 	if err != nil {
 		return err
 	}
-	fmt.Println(newURL)
+	method := "GET"
+
+	payload := strings.NewReader("")
+	client := &http.Client{}
+	req, err := http.NewRequest(method, newURL, payload)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	req.Header.Add("Authorization", "Bearer "+os.Getenv("CLERK_API"))
+
+	res, err := client.Do(req)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	defer res.Body.Close()
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		fmt.Println(err)
+		return err
+	}
+	fmt.Println(string(body))
 	return nil
 }
