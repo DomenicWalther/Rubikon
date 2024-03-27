@@ -14,4 +14,5 @@ func setupRoutes(app *fiber.App) {
 	})
 	app.Get("/User", handlers.GetUser)
 	app.Post("/Users/process-user-progress", middleware.JWTMiddleware(), handlers.ProcessUserProgress)
+	app.Get("/Users/top-users", handlers.GetTopUsers)
 }
