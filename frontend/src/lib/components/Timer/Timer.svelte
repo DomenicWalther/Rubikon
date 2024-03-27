@@ -9,10 +9,12 @@
 	let dialogOpen = false;
 	let streakLength = 0;
 
-	async function processUserUpdatesAndShowDialog(userExperience: number) {
-		const response = await processUserUpdates(userExperience);
+	async function processUserUpdatesAndShowDialog(rubikonLength: number) {
+		const response = await processUserUpdates(rubikonLength);
+		console.log(response);
+		let userExperience: number = response.gainedExperience;
 		toast('Du hast ' + userExperience + ' Erfahrungspunkte erhalten.');
-		streakLength = response.StreakLength;
+		streakLength = response.streakLength;
 		if (response != 'You already increased your streak today') {
 			dialogOpen = true;
 		}

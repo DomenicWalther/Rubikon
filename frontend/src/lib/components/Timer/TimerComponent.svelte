@@ -4,8 +4,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	function processUser(userExperience: number) {
-		dispatch('processUser', userExperience as number);
+	function processUser(rubikonLength: number) {
+		dispatch('processUser', rubikonLength as number);
 	}
 
 	let hours = 0;
