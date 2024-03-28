@@ -5,10 +5,15 @@
 </script>
 
 <a href="/">Home</a>
-<section>
-	<h1 class="font-bold text-3xl text-center">Ranking</h1>
-	{#each users as user}
-		<h3>{user.ID}</h3>
-		<h4>{user.experience}</h4>
-	{/each}
+<section class="container">
+	<h1 class="font-bold text-4xl text-center">Ranking</h1>
+	<div class="flex flex-col px-[410px] mt-20">
+		{#each users as user, index}
+			<div class="flex gap-20 justify-between">
+				<h2>Platz {index + 1}</h2>
+				<h3 class="flex-grow">{user.ID}</h3>
+				<h4 class="text-right">Erfahrung: {user.experience}</h4>
+			</div>
+		{/each}
+	</div>
 </section>
