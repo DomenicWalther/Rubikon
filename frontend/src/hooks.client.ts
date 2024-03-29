@@ -6,8 +6,8 @@ import { PUBLIC_CLERK_PUBLISHABLE_KEY } from "$env/static/public";
 
 
 await initializeClerkClient(PUBLIC_CLERK_PUBLISHABLE_KEY, {
-	afterSignInUrl: "/admin",
-	afterSignUpUrl: "/admin",
+	afterSignInUrl: "/app",
+	afterSignUpUrl: "/app",
 	signInUrl: "/sign-in",
 	signUpUrl: "/sign-up",
 })
