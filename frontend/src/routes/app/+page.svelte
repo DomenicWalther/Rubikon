@@ -1,6 +1,4 @@
 <script>
-	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
-	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
 	import { Navigation } from '$lib/components';
 
 	export let data;
