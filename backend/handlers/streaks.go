@@ -60,6 +60,7 @@ func ProcessUserProgress(c *fiber.Ctx) error {
 
 func updateUserExperience(experience int, userID string) error {
 	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("experience", gorm.Expr("experience + ?", experience))
+	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("monthly_experience", gorm.Expr("monthly_experience + ?", experience))
 	return nil
 }
 
