@@ -41,6 +41,13 @@ func GetUser(c *fiber.Ctx) error {
 	return c.Status(200).JSON(&result)
 }
 
+func GetUserById(c *fiber.Ctx) error {
+	id := c.Params("id")
+	user := models.User{}
+	database.DB.Db.Where("user_id = ?", id).First(&user)
+	return c.Status(200).JSON(&user)
+}
+
 func GetTopUsers(c *fiber.Ctx) error {
 	var topUsers []models.User
 	database.DB.Db.Order("experience desc").Limit(10).Find(&topUsers)
