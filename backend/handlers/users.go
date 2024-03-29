@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -10,8 +9,18 @@ import (
 
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
+	"github.com/go-jose/go-jose/v3/json"
 	"github.com/gofiber/fiber/v2"
 )
+
+type LeaderBoardUserInfo struct {
+	ID                string `json:"id"`
+	Username          string `json:"username"`
+	FirstName         string `json:"first_name"`
+	ProfileImageURL   string `json:"profile_image_url"`
+	Experience        int    `json:"experience"`
+	MonthlyExperience int    `json:"monthly_experience"`
+}
 
 func CreateUser(c *fiber.Ctx) error {
 
@@ -56,11 +65,23 @@ func GetTopUsers(c *fiber.Ctx) error {
 	for _, user := range topUsers {
 		userIds = append(userIds, user.User_ID)
 	}
+	userMap := make(map[string]models.User)
+	for _, user := range topUsers {
+		userMap[user.User_ID] = user
+	}
 
-	jsonData, _ := json.Marshal(userIds)
-	fmt.Println(string(jsonData))
-	fetchUserData(userIds)
-	return c.Status(200).JSON(&topUsers)
+	_, clerkData := fetchUserData(userIds)
+
+	for i := range clerkData {
+		userID := clerkData[i].ID
+		if matchingUser, exists := userMap[userID]; exists {
+			clerkData[i].Experience = matchingUser.Experience
+			clerkData[i].MonthlyExperience = matchingUser.MonthlyExperience
+
+		}
+	}
+
+	return c.Status(200).JSON(clerkData)
 
 }
 
@@ -80,11 +101,11 @@ func appendUserIDsToURL(baseURL string, userIDs []string) (string, error) {
 	return newURL, nil
 }
 
-func fetchUserData(userIds []string) error {
+func fetchUserData(userIds []string) (error, []LeaderBoardUserInfo) {
 	baseURL := "https://api.clerk.com/v1/users"
 	newURL, err := appendUserIDsToURL(baseURL, userIds)
 	if err != nil {
-		return err
+		return err, nil
 	}
 	method := "GET"
 
@@ -93,22 +114,29 @@ func fetchUserData(userIds []string) error {
 	req, err := http.NewRequest(method, newURL, payload)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return err, nil
 	}
 	req.Header.Add("Authorization", "Bearer "+os.Getenv("CLERK_API"))
 
 	res, err := client.Do(req)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return err, nil
 	}
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		fmt.Println(err)
-		return err
+		return err, nil
 	}
-	fmt.Println(string(body))
-	return nil
+	var users []LeaderBoardUserInfo
+
+	err = json.Unmarshal(body, &users)
+	if err != nil {
+		fmt.Println(err)
+		return err, nil
+	}
+	fmt.Println(users)
+	return nil, users
 }
