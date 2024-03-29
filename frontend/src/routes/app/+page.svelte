@@ -1,6 +1,7 @@
 <script>
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
 	import SignedIn from 'clerk-sveltekit/client/SignedIn.svelte';
+	import { Navigation } from '$lib/components';
 
 	export let data;
 	let userExperience = data.user.experience;
@@ -8,11 +9,9 @@
 	let userLevel = Math.floor(Math.sqrt(userExperience / 10) + 1);
 </script>
 
-<SignedIn>
-	<UserButton afterSignOutUrl="/" />
-</SignedIn>
+<Navigation />
 
-<main class="flex items-center flex-col mt-10">
+<main class="flex items-center flex-col pt-10">
 	<h2>Was machen wir Tobias?</h2>
 	<div class="flex gap-5">
 		<div class="h-40 w-20 bg-mainblue"></div>
