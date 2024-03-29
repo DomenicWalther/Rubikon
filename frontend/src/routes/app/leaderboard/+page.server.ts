@@ -3,6 +3,10 @@ export async function load() {
     try {
         leaderboardData = await fetch('http://localhost:3000/Users/top-users');
         const data = await leaderboardData.json();
+        data.sort((a, b) => b.experience - a.experience);
+        for (const obj of data) {
+            delete obj.id
+        }
         return {
             body: data
         }
