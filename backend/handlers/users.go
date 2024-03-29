@@ -59,7 +59,7 @@ func GetTopUsers(c *fiber.Ctx) error {
 
 	jsonData, _ := json.Marshal(userIds)
 	fmt.Println(string(jsonData))
-	fetchTopUserData(userIds)
+	fetchUserData(userIds)
 	return c.Status(200).JSON(&topUsers)
 
 }
@@ -80,7 +80,7 @@ func appendUserIDsToURL(baseURL string, userIDs []string) (string, error) {
 	return newURL, nil
 }
 
-func fetchTopUserData(userIds []string) error {
+func fetchUserData(userIds []string) error {
 	baseURL := "https://api.clerk.com/v1/users"
 	newURL, err := appendUserIDsToURL(baseURL, userIds)
 	if err != nil {
