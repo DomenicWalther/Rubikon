@@ -19,4 +19,5 @@ type User struct {
 	Currency          int            `json:"currency" gorm:"not null;default:0"`
 	Skins             []Skin         `gorm:"many2many:user_skins;"`
 	Streaks           []Streak       `gorm:"foreignKey:UserID;references:User_ID"`
+	Groups            []Group        `gorm:"many2many:group_users;"`
 }
