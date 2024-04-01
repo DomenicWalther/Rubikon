@@ -38,7 +38,7 @@
 			</div>
 			<div class="flex justify-between">
 				<label for="private">Privat</label>
-				<input type="checkbox" id="private" bind:value={newGroupIsPrivate} name="private" />
+				<input type="checkbox" id="private" bind:checked={newGroupIsPrivate} name="private" />
 			</div>
 			<div class="flex flex-col">
 				<label for="description">Beschreibung</label>
