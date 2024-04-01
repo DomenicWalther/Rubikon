@@ -1,6 +1,10 @@
 <script lang="ts">
 	import { Navigation } from '$lib/components';
 	import * as Popover from '$lib/components/shadcn/ui/popover';
+
+	export let data;
+	let groups = data.body;
+	console.log(groups);
 </script>
 
 <Navigation />
@@ -34,4 +38,21 @@
 			>
 		</Popover.Content>
 	</Popover.Root>
+
+	<div>
+		{#each groups as group, index}
+			<div class="flex gap-10 mt-5 w-96 content-around items-center">
+				<img
+					src="https://via.placeholder.com/150"
+					alt="Group Picture"
+					class="w-10 h-10 rounded-full"
+				/>
+				<div>
+					<h3>{group.name}</h3>
+					<h4>{group.description}</h4>
+				</div>
+				<button class="bg-mainorange text-white font-bold px-5 py-2">Beitreten</button>
+			</div>
+		{/each}
+	</div>
 </section>
