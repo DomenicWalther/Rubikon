@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { Navigation } from '$lib/components';
 	import * as Popover from '$lib/components/shadcn/ui/popover';
-	import { processGroupCreation } from '$lib/utils/apiHandlers/processGroupCreation.js';
+	import { processGroupCreation, processJoinGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let data;
 	let groups = data.body;
+	console.log(groups);
 
 	let newGroupImageUrl = 'https://via.placeholder.com/150';
 	let newGroupName: string;
@@ -17,7 +18,7 @@
 			isPrivate: newGroupIsPrivate,
 			imageURL: newGroupImageUrl
 		};
-		await processGroupCreation(group);
+		let result = await processGroupCreation(group);
 	}
 </script>
 
@@ -67,7 +68,10 @@
 					<h3>{group.name}</h3>
 					<h4>{group.description}</h4>
 				</div>
-				<button class="bg-mainorange text-white font-bold px-5 py-2">Beitreten</button>
+				<button
+					class="bg-mainorange text-white font-bold px-5 py-2"
+					on:click={() => processJoinGroup(group.id)}>Beitreten</button
+				>
 			</div>
 		{/each}
 	</div>
