@@ -19,6 +19,7 @@ func CreateGroup(c *fiber.Ctx) error {
 			"message": "Bad request",
 		})
 	}
+	group.OwnerID = c.Locals("sub").(string)
 	database.DB.Db.Create(&group)
 	return c.Status(200).JSON(group)
 }
