@@ -14,3 +14,4 @@ package-lock.json
 /backend/cmd/tmp
 /backend/pre_cmd.txt
 /backend/post_cmd.txt
+package.json
