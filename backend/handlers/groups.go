@@ -11,3 +11,14 @@ func GetGroups(c *fiber.Ctx) error {
 	database.DB.Db.Find(&groups)
 	return c.Status(200).JSON(groups)
 }
+
+func CreateGroup(c *fiber.Ctx) error {
+	group := new(models.Group)
+	if err := c.BodyParser(group); err != nil {
+		return c.Status(400).JSON(fiber.Map{
+			"message": "Bad request",
+		})
+	}
+	database.DB.Db.Create(&group)
+	return c.Status(200).JSON(group)
+}

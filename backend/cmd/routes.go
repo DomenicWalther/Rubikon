@@ -18,4 +18,5 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/Users/:id", handlers.GetUserById)
 
 	app.Get("/Groups", handlers.GetGroups)
+	app.Post("/Groups", middleware.JWTMiddleware(), handlers.CreateGroup)
 }
