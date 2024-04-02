@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { leaveGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let group;
 </script>
 
