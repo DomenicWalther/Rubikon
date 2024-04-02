@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { Navigation } from '$lib/components';
-	import GroupRow from '$lib/components/GroupRow/GroupRow.svelte';
+	import { Navigation, GroupRow } from '$lib/components';
 	import * as Popover from '$lib/components/shadcn/ui/popover';
 	import { processGroupCreation, processJoinGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let data;
