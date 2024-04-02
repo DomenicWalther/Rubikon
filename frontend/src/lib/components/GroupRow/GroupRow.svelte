@@ -1,6 +1,7 @@
 <script lang="ts">
+	import type { GroupRowProps } from '$lib/types/groups';
 	import { leaveGroup } from '$lib/utils/apiHandlers/processGroups.js';
-	export let group;
+	export let group: GroupRowProps;
 </script>
 
 <div class="flex gap-10 mt-5 w-80 justify-between items-center">
