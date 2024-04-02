@@ -18,7 +18,7 @@
 			isPrivate: newGroupIsPrivate,
 			imageURL: newGroupImageUrl
 		};
-		let result = await processGroupCreation(group);
+		await processGroupCreation(group);
 	}
 </script>
 
@@ -57,22 +57,33 @@
 	</Popover.Root>
 
 	<div>
-		{#each groups as group, index}
-			<div class="flex gap-10 mt-5 w-96 content-around items-center">
-				<img
-					src="https://via.placeholder.com/150"
-					alt="Group Picture"
-					class="w-10 h-10 rounded-full"
-				/>
-				<div>
-					<h3>{group.name}</h3>
-					<h4>{group.description}</h4>
+		<p class="text-2xl font-bold mt-10">Deine Gruppen</p>
+		{#each groups as group}
+			{#if group.is_member}
+				<div class="flex gap-10 mt-5 w-96 content-around items-center">
+					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-full" />
+					<div>
+						<h3>{group.name}</h3>
+						<h4>{group.description}</h4>
+					</div>
 				</div>
-				<button
-					class="bg-mainorange text-white font-bold px-5 py-2"
-					on:click={() => processJoinGroup(group.id)}>Beitreten</button
-				>
-			</div>
+			{/if}
+		{/each}
+		<p class="text-2xl font-bold mt-10">Gruppe beitreten</p>
+		{#each groups as group}
+			{#if !group.is_member}
+				<div class="flex gap-10 mt-5 w-96 content-around items-center">
+					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-full" />
+					<div>
+						<h3>{group.name}</h3>
+						<h4>{group.description}</h4>
+					</div>
+					<button
+						class="bg-mainorange text-white font-bold px-5 py-2"
+						on:click={() => processJoinGroup(group.id)}>Beitreten</button
+					>
+				</div>
+			{/if}
 		{/each}
 	</div>
 </section>
