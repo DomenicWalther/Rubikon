@@ -6,10 +6,33 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+type GroupWithStatus struct {
+	models.Group
+	IsMember bool `json:"is_member"`
+}
+
 func GetGroups(c *fiber.Ctx) error {
 	var groups []models.Group
+	var userHasGroups *[]models.Group
+	userHasGroups = userGroups(c)
 	database.DB.Db.Find(&groups)
-	return c.Status(200).JSON(groups)
+
+	resultGroups := make([]GroupWithStatus, 0, len(groups))
+
+	for _, group := range groups {
+		joined := false
+		for _, userGroup := range *userHasGroups {
+			if group.ID == userGroup.ID {
+				joined = true
+				break
+			}
+		}
+		resultGroups = append(resultGroups, GroupWithStatus{
+			Group:    group,
+			IsMember: joined,
+		})
+	}
+	return c.Status(200).JSON(resultGroups)
 }
 
 func CreateGroup(c *fiber.Ctx) error {
@@ -42,4 +65,13 @@ func JoinGroup(c *fiber.Ctx) error {
 	database.DB.Db.Model(&user).Association("Groups").Append(&group)
 
 	return c.Status(200).JSON(&user)
+}
+
+func userGroups(c *fiber.Ctx) *[]models.Group {
+	id := c.Params("id")
+	user := models.User{}
+	database.DB.Db.Where("user_id = ?", id).First(&user)
+	database.DB.Db.Model(&user).Preload("Groups").Association("Groups").Find(&user.Groups)
+
+	return &user.Groups
 }
