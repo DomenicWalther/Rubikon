@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { Navigation } from '$lib/components';
+	import GroupRow from '$lib/components/GroupRow/GroupRow.svelte';
 	import * as Popover from '$lib/components/shadcn/ui/popover';
 	import { processGroupCreation, processJoinGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let data;
@@ -73,23 +74,10 @@
 		<p class="text-2xl font-bold mt-10">Deine Gruppen</p>
 		{#each groups as group}
 			{#if group.is_member}
-				<div class="flex gap-10 mt-5 w-80 justify-between items-center">
-					<div class="flex gap-6">
-						<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-full" />
-						<div>
-							<h3>{group.name}</h3>
-							<h4>{group.description}</h4>
-						</div>
-					</div>
-					<div class="bg-mainorange px-5 py-2 text-white font-bold">
-						{group.userCount}
-					</div>
-					<div class="bg-mainorange px-5 py-2 text-white font-bold">
-						<button on:click={() => leaveGroup(group.id)}>Verlassen</button>
-					</div>
-				</div>
+				<GroupRow {group} />
 			{/if}
 		{/each}
+
 		<p class="text-2xl font-bold mt-10">Gruppe beitreten</p>
 		{#each groups as group}
 			{#if !group.is_member}
