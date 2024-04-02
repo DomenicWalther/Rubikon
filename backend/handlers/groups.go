@@ -63,6 +63,7 @@ func JoinGroup(c *fiber.Ctx) error {
 
 	group := models.Group{ID: uint(id.ID)}
 	database.DB.Db.Model(&user).Association("Groups").Append(&group)
+	database.DB.Db.Model(&group).Update("user_count", group.UserCount+1)
 
 	return c.Status(200).JSON(&user)
 }
