@@ -20,4 +20,5 @@ func setupRoutes(app *fiber.App) {
 	app.Get("/Groups/:id", handlers.GetGroups)
 	app.Post("/Groups", middleware.JWTMiddleware(), handlers.CreateGroup)
 	app.Post("/Groups/join", middleware.JWTMiddleware(), handlers.JoinGroup)
+	app.Delete("/Groups/leave", middleware.JWTMiddleware(), handlers.LeaveGroup)
 }

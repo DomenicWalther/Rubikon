@@ -76,3 +76,24 @@ func userGroups(c *fiber.Ctx) *[]models.Group {
 
 	return &user.Groups
 }
+
+func LeaveGroup(c *fiber.Ctx) error {
+	user := models.User{}
+	id := new(struct {
+		ID int `json:"group_id"`
+	})
+	err := c.BodyParser(id)
+	if err != nil {
+		return c.Status(400).JSON(fiber.Map{
+			"message": "Bad request",
+		})
+	}
+
+	database.DB.Db.Where("user_id = ?", c.Locals("sub").(string)).First(&user)
+
+	group := models.Group{ID: uint(id.ID)}
+	database.DB.Db.Model(&user).Association("Groups").Delete(&group)
+	database.DB.Db.Model(&group).Update("user_count", group.UserCount-1)
+
+	return c.Status(200).JSON(&user)
+}
