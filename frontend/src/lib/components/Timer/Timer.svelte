@@ -11,7 +11,6 @@
 
 	async function processUserUpdatesAndShowDialog(rubikonLength: number) {
 		const response = await processUserUpdates(rubikonLength);
-		console.log(response);
 		let userExperience: number = response.gainedExperience;
 		toast('Du hast ' + userExperience + ' Erfahrungspunkte erhalten.');
 		streakLength = response.streakLength;
