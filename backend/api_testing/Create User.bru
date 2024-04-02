@@ -1,0 +1,19 @@
+meta {
+  name: Create User
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3000/Users
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "data": {
+      "id": "user_2dy76EPkY5s86dm4FShjD86fnGu"
+    }
+  }
+}
