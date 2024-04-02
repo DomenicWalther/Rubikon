@@ -20,6 +20,19 @@
 		};
 		await processGroupCreation(group);
 	}
+
+	async function leaveGroup(groupId: number) {
+		const response = await fetch('http://localhost:3000/Groups/leave', {
+			method: 'DELETE',
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: `Bearer ${await Clerk.session.getToken()}`
+			},
+			body: JSON.stringify({ group_id: groupId })
+		});
+		data = await response.json();
+		console.log(data);
+	}
 </script>
 
 <Navigation />
@@ -70,6 +83,9 @@
 					</div>
 					<div class="bg-mainorange px-5 py-2 text-white font-bold">
 						{group.userCount}
+					</div>
+					<div class="bg-mainorange px-5 py-2 text-white font-bold">
+						<button on:click={() => leaveGroup(group.id)}>Verlassen</button>
 					</div>
 				</div>
 			{/if}
