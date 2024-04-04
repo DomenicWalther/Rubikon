@@ -20,19 +20,6 @@
 		};
 		await processGroupCreation(group);
 	}
-
-	async function leaveGroup(groupId: number) {
-		const response = await fetch('http://localhost:3000/Groups/leave', {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${await Clerk.session.getToken()}`
-			},
-			body: JSON.stringify({ group_id: groupId })
-		});
-		data = await response.json();
-		console.log(data);
-	}
 </script>
 
 <Navigation />

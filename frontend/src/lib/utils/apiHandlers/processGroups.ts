@@ -1,3 +1,6 @@
+import { PUBLIC_BACKEND_URL } from "$env/static/public";
+
+
 interface GroupData {
     name: string;
     description: string;
@@ -7,7 +10,7 @@ interface GroupData {
 
 
 export const processGroupCreation = async (groupData: GroupData) => {
-    const response = await fetch('http://localhost:3000/Groups', {
+    const response = await fetch(`${PUBLIC_BACKEND_URL}/Groups`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -21,7 +24,7 @@ export const processGroupCreation = async (groupData: GroupData) => {
 
 
 export const processJoinGroup = async(groupId: string) => {
-    const response = await fetch('http://localhost:3000/Groups/join', {
+    const response = await fetch(`${PUBLIC_BACKEND_URL}/Groups/join`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

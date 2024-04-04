@@ -1,6 +1,7 @@
+import { PUBLIC_BACKEND_URL } from "$env/static/public";
 
 export const processUserUpdates = async (userExperience: number) => {
-		const response = await fetch('http://localhost:3000/Users/process-user-progress', {
+		const response = await fetch(`${PUBLIC_BACKEND_URL}/Users/process-user-progress`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

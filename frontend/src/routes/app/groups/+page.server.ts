@@ -1,7 +1,8 @@
+import { PUBLIC_BACKEND_URL } from "$env/static/public";
 export async function load(event) {
 	const user_id: string = event.locals.session.userId
 	try {
-		const groups = await fetch(`http://localhost:3000/Groups/${user_id}`);
+		const groups = await fetch(`${PUBLIC_BACKEND_URL}/Groups/${user_id}`);
 		const data = await groups.json();
 		return {
 			body: data
