@@ -1,18 +1,7 @@
 <script lang="ts">
-	export let group;
-	import { PUBLIC_BACKEND_URL } from '$env/static/public';
-	async function leaveGroup(groupId: number) {
-		const response = await fetch(`${PUBLIC_BACKEND_URL}/Groups/leave`, {
-			method: 'DELETE',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: `Bearer ${await Clerk.session.getToken()}`
-			},
-			body: JSON.stringify({ group_id: groupId })
-		});
-		data = await response.json();
-		console.log(data);
-	}
+	import type { GroupRowProps } from '$lib/types/groups';
+	import { leaveGroup } from '$lib/utils/apiHandlers/processGroups.js';
+	export let group: GroupRowProps;
 </script>
 
 <div class="flex gap-10 mt-5 w-80 justify-between items-center">

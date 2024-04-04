@@ -4,7 +4,6 @@
 	import { processGroupCreation, processJoinGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let data;
 	let groups = data.body;
-	console.log(groups);
 
 	let newGroupImageUrl = 'https://via.placeholder.com/150';
 	let newGroupName: string;
