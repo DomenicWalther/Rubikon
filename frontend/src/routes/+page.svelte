@@ -46,4 +46,7 @@
 			></path></svg
 		></button
 	>
+	<section>
+		<h2>Warum Rubikon?</h2>
+	</section>
 </main>
