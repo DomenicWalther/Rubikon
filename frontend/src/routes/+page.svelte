@@ -13,7 +13,7 @@
 		<li>Kontakt</li>
 		<li>
 			<SignedIn>
-				<a href="/app" class="bg-mainorange text-white font-bold rounded-full px-5 py-2"
+				<a href="/app" class="bg-mainorange  text-white font-bold rounded-full px-5 py-2"
 					>Dashboard</a
 				>
 			</SignedIn>

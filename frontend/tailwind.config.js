@@ -19,7 +19,7 @@ const config = {
 				mainyellow: '#EDCB72',
 				mainlightblue: '#4592FA',
 				maingreen: '#6FCFD5',
-				mainbggrey: '#F2F6FF',
+				maingrey: '#F2F6FF',
 				border: 'hsl(var(--border) / <alpha-value>)',
 				input: 'hsl(var(--input) / <alpha-value>)',
 				ring: 'hsl(var(--ring) / <alpha-value>)',
