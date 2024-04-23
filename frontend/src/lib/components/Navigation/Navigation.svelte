@@ -14,7 +14,7 @@
 		$isSidebarOpen = !$isSidebarOpen;
 	}
 
-	function closeMenüOnClickOutside(event) {
+	function closeSidebarOnClickOutside(event) {
 		const navigation = document.getElementById('navigation');
 		const sidebar = document.getElementById('sidebar');
 		if (
@@ -28,7 +28,7 @@
 	}
 
 	onMount(async () => {
-		document.addEventListener('click', closeMenüOnClickOutside);
+		document.addEventListener('click', closeSidebarOnClickOutside);
 	});
 </script>
 
