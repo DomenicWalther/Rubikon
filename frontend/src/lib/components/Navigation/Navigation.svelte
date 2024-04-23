@@ -3,7 +3,6 @@
 	import Globus from '$lib/svg/globus.svg';
 	import Personen from '$lib/svg/people.svg';
 	import Linie from '$lib/svg/line.svg';
-	import Ham from '$lib/svg/ham.svg';
 	import Coin from '$lib/svg/coin.svg';
 	import { isSidebarOpen } from '$lib/store';
 	import { NavigationSidebar } from '$lib/components';
