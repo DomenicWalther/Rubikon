@@ -12,7 +12,6 @@
 </script>
 
 <Navigation />
-<NavigationBottom />
 <main class="flex items-center flex-col pt-10 h-screen">
 	<div class="mt-10 mb-10"><h1 class="font-bold text-2xl">Was machen wir Tobias?</h1></div>
 	<div class="flex items-center">
@@ -24,9 +23,11 @@
 		max={nextLevelXP}
 		class="[&::-webkit-progress-bar]:rounded-lg w-80 [&::-webkit-progress-value]:rounded-lg [&::-webkit-progress-bar]:bg-slate-300 [&::-webkit-progress-value]:bg-mainblue [&::-moz-progress-bar]:bg-mainblue"
 	></progress>
-	<p class="mt-5 font-medium text-xl">{currentLevelXP}/{nextLevelXP} Erfahrungspunkte</p>
-	<p class="font-medium text-xl">Aktuelles Level:{userLevel}</p>
+	<p class="mt-2 font-medium text-base">{currentLevelXP}/{nextLevelXP} Erfahrungspunkte</p>
+	<p class="mt-4 font-medium text-xl">Aktuelles Level:{userLevel}</p>
 	<a href="/app/timer" class="mt-16 bg-mainblue text-white font-bold rounded-full px-5 py-3"
 		>Reise starten</a
 	>
 </main>
+
+<NavigationBottom />
