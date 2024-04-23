@@ -53,8 +53,10 @@
 		<img src={Globus} alt="Text" />
 	</div>
 	<div>
-		<div class="rounded w-10 to-blue-600 h-6"></div>
-		<img src={Coin} alt="Text" />
+		<div class="rounded-full w-24 gap-2 bg-mainblue h-10 flex items-center">
+			<img src={Coin} alt="Text" class="h-10" />
+			<p class="text-white">10</p>
+		</div>
 	</div>
 </nav>
 
