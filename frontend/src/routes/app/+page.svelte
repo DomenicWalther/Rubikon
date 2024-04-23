@@ -12,7 +12,7 @@
 </script>
 
 <Navigation />
-<main class="flex items-center flex-col pt-10 h-screen">
+<main class="flex items-center flex-col pt-10 h-fit">
 	<div class="mt-10 mb-10"><h1 class="font-bold text-2xl">Was machen wir Tobias?</h1></div>
 	<div class="flex items-center">
 		<img src={Roboter} alt="text" class="w-80 h-80 mb-8" />
