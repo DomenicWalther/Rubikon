@@ -29,7 +29,7 @@
 	class="ham py-1 fixed z-10 bg-white w-full h-full {$isSidebarOpen
 		? 'left-0'
 		: '-left-full'} transition-[left] duration-300 ease-in-out"
-	id="navigation"
+	id="sidebar"
 >
 	<ul class="items-center font-medium">
 		<li class="py-5 px-5 bg-gray-300">

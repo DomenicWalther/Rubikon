@@ -6,16 +6,23 @@
 	import Ham from '$lib/svg/ham.svg';
 	import Coin from '$lib/svg/coin.svg';
 	import { isSidebarOpen } from '$lib/store';
-	import { NavigationSidebar} from '$lib/components';
+	import { NavigationSidebar } from '$lib/components';
 
-	$isSidebarOpen 
+	$isSidebarOpen;
 
 	function toggleMenu() {
 		$isSidebarOpen = !$isSidebarOpen;
 	}
 
 	function closeMenüOnClickOutside(event) {
-		if (!document.getElementById('navigation')?.contains(event.target)) {
+		const navigation = document.getElementById('navigation');
+		const sidebar = document.getElementById('sidebar');
+		if (
+			navigation &&
+			!navigation.contains(event.target) &&
+			sidebar &&
+			!sidebar.contains(event.target)
+		) {
 			$isSidebarOpen = false;
 		}
 	}
