@@ -11,6 +11,8 @@
 	import Premium from '$lib/svg/premium.svg';
 	import { isSidebarOpen } from '$lib/store';
 	import SidebarItem from './SidebarItem.svelte';
+	import SignOutButton from 'clerk-sveltekit/client/SignOutButton.svelte';
+	import { goto } from '$app/navigation';
 
 	const sidebarItems: Array<any> = [
 		{ label: 'Auf Premium upgraden', svg: Premium, backgroundColor: 'bg-red-500' },
@@ -23,6 +25,9 @@
 		{ label: 'Hilfe', svg: Hilfe },
 		{ label: 'Über uns', svg: Über_uns }
 	];
+	const handleSignOut = () => {
+		goto('/');
+	};
 </script>
 
 <nav
@@ -43,7 +48,7 @@
 		</div>
 		<li class="flex items-center px-4 py-20">
 			<div class="p-1.5 mr-3"><img src={Abmelden} alt="text" /></div>
-			<a href="/">Abmelden</a>
+			<SignOutButton signOutCallback={handleSignOut}><button>Abmelden</button></SignOutButton>
 		</li>
 	</ul>
 </nav>
