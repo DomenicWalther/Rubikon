@@ -2,6 +2,7 @@
 	import { Navigation, NavigationBottom } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
+	import Pfeil from '$lib/svg/pfeil.svg';
 
 	export let data;
 	let userExperience = data.user.experience;
@@ -12,11 +13,12 @@
 </script>
 
 <Navigation />
-<main class="flex items-center flex-col pt-10 h-fit">
-	<div class="mt-10 mb-10"><h1 class="font-bold text-2xl">Was machen wir Tobias?</h1></div>
+<main class="flex items-center flex-col h-fit bg-maingrey">
+	<div class="mt-12 mb-10"><h1 class="font-medium text-3xl text-center">Was machen wir <br> Tobias?</h1></div>
 	<div class="flex items-center">
-		<img src={Roboter} alt="text" class="w-80 h-80 mb-8" />
-		<img src={Blitz} alt="text" class="w-15 h-15" />
+		<img src={Pfeil} alt="text" class="w-14 h-8" />
+		<img src={Roboter} alt="text" class="w-40 h-70 mb-8 mr-6 ml-6" />
+		<img src={Blitz} alt="text" class="w-14" />
 	</div>
 	<progress
 		value={currentLevelXP}
@@ -25,9 +27,9 @@
 	></progress>
 	<p class="mt-2 font-medium text-base">{currentLevelXP}/{nextLevelXP} Erfahrungspunkte</p>
 	<p class="mt-4 font-medium text-xl">Aktuelles Level:{userLevel}</p>
-	<a href="/app/timer" class="mt-16 bg-mainblue text-white font-bold rounded-full px-5 py-3"
-		>Reise starten</a
-	>
+	<button class="bg-mainblue text-white font-medium rounded-full px-10 py-3 m-20 mx-auto">
+		<a href="/app/timer" class="text-xl">Reise starten</a>
+	</button>
 </main>
 
 <NavigationBottom />
