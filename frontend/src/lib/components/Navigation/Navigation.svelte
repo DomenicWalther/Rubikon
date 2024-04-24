@@ -45,7 +45,7 @@
 		></button
 	>
 	<div class="flex justify-center items-center">
-		<img src={Personen} alt="Text" />
+		<a href="/app/groups"><img src={Personen} alt="Text" /></a>
 		<div class="px-2.5">
 			<img src={Linie} alt="Text" />
 		</div>

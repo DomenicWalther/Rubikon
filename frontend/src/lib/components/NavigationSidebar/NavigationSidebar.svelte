@@ -18,7 +18,7 @@
 		{ label: 'Auf Premium upgraden', svg: Premium, backgroundColor: 'bg-red-500' },
 		{ label: 'Einstellungen', svg: Einstellungen },
 		{ label: 'Shop', svg: Shop },
-		{ label: 'Gruppen', svg: Gruppen },
+		{ label: 'Gruppen', svg: Gruppen, link: '/app/groups' },
 		{ label: 'Statistiken', svg: Statistiken },
 		{ label: 'Bewerten Sie die App', svg: Bewerten },
 		{ label: 'Teilen', svg: Teilen },
@@ -42,8 +42,8 @@
 			<a href="/" class="font-medium"><br />7 Tage Probezeit</a>
 		</li>
 		<div class="flex gap-6 flex-col mt-7">
-			{#each sidebarItems as { label, svg, backgroundColor }}
-				<SidebarItem {label} {svg} {backgroundColor} />
+			{#each sidebarItems as { label, svg, backgroundColor, link }}
+				<SidebarItem {label} {svg} {backgroundColor} {link} />
 			{/each}
 		</div>
 		<li class="flex items-center px-4 py-20">
