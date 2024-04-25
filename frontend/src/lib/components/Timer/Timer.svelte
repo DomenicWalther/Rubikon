@@ -21,7 +21,7 @@
 </script>
 
 <Toaster />
-<section class="flex items-center justify-center flex-col">
+<section class="flex items-center justify-center flex-col text-white">
 	<TimerComponent
 		on:processUser={({ detail: userExperience }) => processUserUpdatesAndShowDialog(userExperience)}
 	/>

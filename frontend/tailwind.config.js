@@ -11,6 +11,9 @@ const config = {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+			digitalNumbers: ['DigitalNumbers', 'monospace']
+		},
 		extend: {
 			colors: {
 				mainblue: '#252C62',

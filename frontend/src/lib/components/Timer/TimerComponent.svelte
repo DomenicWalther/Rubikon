@@ -70,29 +70,25 @@
 	}
 </script>
 
-<h2 class=" font-bold text-7xl">Timer</h2>
-
-<p>Countdown:</p>
-<div class="flex gap-20 text-3xl font-bold mt-20">
+<div class="flex gap-10 text-3xl font-bold mt-20 items-center">
 	<TimerControls
-		label="Stunden"
-		value={hours}
-		increment={() => adjustTime('hours', 1)}
-		decrement={() => adjustTime('hours', -1)}
-	/>
-	<TimerControls
-		label="Minuten"
 		value={minutes}
 		increment={() => adjustTime('minutes', 1)}
 		decrement={() => adjustTime('minutes', -1)}
 	/>
+	<p>:</p>
 	<TimerControls
-		label="Sekunden"
 		value={seconds}
 		increment={() => adjustTime('seconds', 1)}
 		decrement={() => adjustTime('seconds', -1)}
 	/>
 </div>
 
-<button class="text-2xl mt-10" on:click={() => startTimer()}>Start Timer</button>
+<button
+	class="text-2xl mt-10 border-white border-2 rounded-full py-4 px-12 font-medium"
+	on:click={() => startTimer()}>STARTEN</button
+>
+<!--
 <button class="text-2xl mt-10" on:click={() => resetTimer()}>Reset Timer</button>
+
+//-->
