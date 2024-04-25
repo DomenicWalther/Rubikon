@@ -3,6 +3,7 @@
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
 	import Pfeil from '$lib/svg/pfeil.svg';
+	import IconTray from '$lib/components/IconTray/IconTray.svelte';
 
 	export let data;
 	let userExperience = data.user.experience;
@@ -14,7 +15,9 @@
 
 <Navigation />
 <main class="flex items-center flex-col h-fit bg-maingrey">
-	<div class="mt-12 mb-10"><h1 class="font-medium text-3xl text-center">Was machen wir <br> Tobias?</h1></div>
+	<div class="mt-12 mb-10">
+		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> Tobias?</h1>
+	</div>
 	<div class="flex items-center">
 		<img src={Pfeil} alt="text" class="w-14 h-8" />
 		<img src={Roboter} alt="text" class="w-40 h-70 mb-8 mr-6 ml-6" />
