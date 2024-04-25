@@ -3,7 +3,6 @@
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
 	import Pfeil from '$lib/svg/pfeil.svg';
-	import IconTray from '$lib/components/IconTray/IconTray.svelte';
 
 	export let data;
 	let userExperience = data.user.experience;
