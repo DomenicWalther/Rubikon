@@ -1,8 +1,7 @@
 <script>
-	import { Navigation, NavigationBottom } from '$lib/components';
+	import { Navigation, NavigationBottom, IconTray } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
-	import Pfeil from '$lib/svg/pfeil.svg';
 
 	export let data;
 	let userExperience = data.user.experience;
@@ -12,13 +11,16 @@
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
 
+
+
+<IconTray/>
+
 <Navigation />
 <main class="flex items-center flex-col h-fit bg-maingrey">
 	<div class="mt-12 mb-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> Tobias?</h1>
 	</div>
-	<div class="flex items-center">
-		<img src={Pfeil} alt="text" class="w-14 h-8" />
+	<div class="flex items-center">		
 		<img src={Roboter} alt="text" class="w-40 h-70 mb-8 mr-6 ml-6" />
 		<img src={Blitz} alt="text" class="w-14" />
 	</div>
