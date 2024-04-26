@@ -5,52 +5,44 @@
 	import Arrow from '$lib/Svg/Arrow.svelte';
 	import { onMount } from 'svelte';
 
-	let isIconTrayVisible = false
+	let isIconTrayVisible = false;
+	let iconTrayButton, iconTray;
 
-	function toggleIconTrayVisibility (){
+	function toggleIconTrayVisibility() {
+		console.log('toggleIconTrayVisibility');
 		isIconTrayVisible = !isIconTrayVisible;
+		console.log(isIconTrayVisible);
 	}
 
-	onMount (() =>{
-
-	window.addEventListener ('click', handleOutSideClick);
-		return() => {
-
-	window.removeEventListener('click', handleOutSideClick);
+	onMount(() => {
+		window.addEventListener('click', handleOutSideClick);
+		return () => {
+			window.removeEventListener('click', handleOutSideClick);
 		};
 	});
 
-
-	function
-	handleOutSideClick(event) {
-		const IconTray = document.querySelector ('.Icontray');
-		const button = document.querySelector ('.button');
-
-		if (!
-	IconTray?.contains(event.target)
-	&& !button?.contains (event.target))
-	{
-		isIconTrayVisible = false;
+	function handleOutSideClick(event) {
+		if (!iconTrayButton.contains(event.target) && !iconTray.contains(event.target)) {
+			isIconTrayVisible = false;
+		}
 	}
-	}
-
-
 </script>
 
-
-
-<div class="fixed left-0 flex flex-col justify-center items-center h-full">
-	<button on:click={toggleIconTrayVisibility} class="button">
-		<Arrow/>
-	</button>
+<div class="absolute Icontray">
+	{#if isIconTrayVisible}
+		<div
+			bind:this={iconTray}
+			class="flex flex-col justify-center items-center bg-mainblue gap-6 rounded-xl py-4 pl-2 pr-2"
+		>
+			<Shop />
+			<Target />
+			<Hanger />
+		</div>
+	{:else}
+		<div>
+			<button on:click={toggleIconTrayVisibility}>
+				<Arrow />
+			</button>
+		</div>
+	{/if}
 </div>
-
-
-{#if isIconTrayVisible}
-<div
-	class="fixed left-0 flex flex-col justify-center items-center top-1/2 bg-mainblue gap-6 rounded-xl py-4 pl-2 pr-2 transform -translate-y-1/2">
-	<Shop />
-	<Target />
-	<Hanger />
-</div>
-{/if}

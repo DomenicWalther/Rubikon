@@ -1,7 +1,6 @@
 <script>
 	import { Timer } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
-	import Pfeil from '$lib/Svg/pfeil.svg';
 </script>
 
 <div
