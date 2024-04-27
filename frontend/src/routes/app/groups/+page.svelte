@@ -9,6 +9,7 @@
 	let newGroupName: string;
 	let newGroupIsPrivate: boolean;
 	let newGroupDescription: string;
+	const hasMember = groups.some((group) => group.is_member);
 
 	async function createGroup() {
 		const group = {
@@ -56,14 +57,19 @@
 	</Popover.Root>
 
 	<div>
-		<p class="text-2xl font-bold mt-10">Deine Gruppen</p>
-		{#each groups as group}
-			{#if group.is_member}
-				<GroupRow {group} />
-			{/if}
-		{/each}
+		<p class="text-2xl font-bold mt-10">Meine Gruppen</p>
+		{#if hasMember}
+			{#each groups as group}
+				{#if group.is_member}
+					<GroupRow {group} />
+				{/if}
+			{/each}
+		{:else}
+			<p>Noch keine Gruppe erstellt oder beigetreten</p>
+		{/if}
 
-		<p class="text-2xl font-bold mt-10">Gruppe beitreten</p>
+		<p class="text-2xl font-bold mt-10">Weitere Gruppen</p>
+		<input type="text" placeholder="Suchen" />
 		{#each groups as group}
 			{#if !group.is_member}
 				<div class="flex gap-10 mt-5 w-96 content-around items-center">
