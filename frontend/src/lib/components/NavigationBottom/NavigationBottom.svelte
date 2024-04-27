@@ -1,8 +1,6 @@
 <script>
 	import UserButton from 'clerk-sveltekit/client/UserButton.svelte';
-	import Home from '$lib/Svg/Home.svelte';
-	import Progress from '$lib/Svg/Progress.svelte';
-	import Leaderboard from '$lib/Svg/Leaderboard.svelte';
+	import SvgIcon from '../SVGIcon.svelte';
 </script>
 
 <div>
@@ -12,13 +10,17 @@
 		<ul class="flex justify-around items-center">
 			<UserButton afterSignOutUrl="/" />
 			<li class="flex flex-col items-center py-5 rounded-full px-8">
-				<a href="/app" class="flex items-center flex-col"><Home />Home</a>
+				<a href="/app" class="flex items-center flex-col"><SvgIcon type="Home" size={24} />Home</a>
 			</li>
 			<li class="py-5 rounded-full px-8">
-				<a href="/app/progress" class="flex items-center flex-col"><Progress />Fortschritt</a>
+				<a href="/app/progress" class="flex items-center flex-col"
+					><SvgIcon type="Progress" />Fortschritt</a
+				>
 			</li>
 			<li class=" py-5 rounded-full px-8 bg-gray-900">
-				<a href="/app/leaderboard" class="flex items-center flex-col"><Leaderboard />Rangliste</a>
+				<a href="/app/leaderboard" class="flex items-center flex-col"
+					><SvgIcon type="Leaderboard" />Rangliste</a
+				>
 			</li>
 		</ul>
 	</nav>
