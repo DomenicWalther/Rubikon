@@ -84,11 +84,14 @@
 	/>
 </div>
 
-<button
-	class="text-2xl mt-10 border-white border-2 rounded-full py-4 px-12 font-medium"
-	on:click={() => startTimer()}>STARTEN</button
->
-<!--
-<button class="text-2xl mt-10" on:click={() => resetTimer()}>Reset Timer</button>
-
-//-->
+{#if $isTimerRunning}
+	<button
+		class="text-2xl mt-10 border-white border-2 rounded-full py-4 px-12 font-medium"
+		on:click={() => resetTimer()}>STOPP</button
+	>
+{:else}
+	<button
+		class="text-2xl mt-10 border-white border-2 rounded-full py-4 px-12 font-medium"
+		on:click={() => startTimer()}>STARTEN</button
+	>
+{/if}
