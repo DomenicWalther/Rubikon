@@ -1,6 +1,7 @@
 <script lang="ts">
 	import TimerControls from './TimerControls.svelte';
 	import { createEventDispatcher } from 'svelte';
+	import { isTimerRunning } from '$lib/store';
 
 	const dispatch = createEventDispatcher();
 
@@ -17,7 +18,6 @@
 	let lastTimer: number;
 	const SECONDS_IN_HOUR = 3600;
 	const SECONDS_IN_MINUTE = 60;
-	let isRunning: boolean = false;
 	$: totalSeconds = hours * SECONDS_IN_HOUR + minutes * SECONDS_IN_MINUTE + seconds;
 	const removeSecond = () => {
 		if (seconds > 0) {
@@ -33,15 +33,15 @@
 	};
 
 	const startTimer = () => {
-		if (!isRunning) {
-			isRunning = true;
+		if (!$isTimerRunning) {
+			$isTimerRunning = true;
 			lastTimer = totalSeconds;
 			intervalID = setInterval(removeSecond, 20);
 		}
 	};
 
 	const resetTimer = () => {
-		isRunning = false;
+		$isTimerRunning = false;
 		clearInterval(intervalID);
 		totalSeconds = lastTimer;
 		hours = Math.floor(lastTimer / SECONDS_IN_HOUR);
@@ -63,7 +63,7 @@
 				break;
 		}
 	};
-	$: if (totalSeconds === 0 && isRunning) {
+	$: if (totalSeconds === 0 && $isTimerRunning) {
 		let userExperience = lastTimer - totalSeconds;
 		processUser(userExperience);
 		resetTimer();

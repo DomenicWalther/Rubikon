@@ -1,12 +1,15 @@
 <script>
 	import { Timer } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
+	import { isTimerRunning } from '$lib/store';
 </script>
 
 <div
 	class="bg-gradient-to-b from-[#232744] from-[54%] to-[#424673] to-[86%] h-screen w-screen flex items-center justify-center flex-col"
 >
+	{#if !$isTimerRunning}
 	<a href="/app" class="  absolute top-1/2 left-20"><div class="arrow left"></div></a>
+	{/if}
 	<div class="flex flex-col items-center gap-20">
 		<p class="text-white text-2xl">Legen wir zusammen los?</p>
 		<div>
