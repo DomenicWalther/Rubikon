@@ -1,4 +1,7 @@
 <script lang="ts">
+
+	import Checkmark from '$lib/Svg/Checkmark.svelte';
+
 	interface weekDayObject {
 		label: string;
 		isStreak: boolean;
@@ -23,8 +26,18 @@
 <div class="flex gap-5">
 	{#each allWeekDays as weekDayObject}
 		<div class="flex items-center flex-col">
-			<div class="font-bold text-black">{weekDayObject.label}</div>
-			<div class={weekDayObject.isStreak ? 'h-8 w-8 bg-blue-500' : 'h-8 w-8 bg-slate-400'}></div>
+			<div class="font-medium text-black m-1">{weekDayObject.label}</div>
+			<div class="h-8 w-8 rounded-md{weekDayObject.isStreak ? ' bg-mainlightblue  flex items-center justify-center' : ' bg-slate-400'}">
+				{#if weekDayObject.isStreak}
+				
+				<Checkmark />
+
+				{/if}
+			</div>
 		</div>
 	{/each}
 </div>
+
+
+
+
