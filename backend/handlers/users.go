@@ -22,6 +22,11 @@ type LeaderBoardUserInfo struct {
 	MonthlyExperience int    `json:"monthly_experience"`
 }
 
+type UserResponse struct {
+	Username string `json:"username"`
+	models.User
+}
+
 func CreateUser(c *fiber.Ctx) error {
 
 	type Response struct {
@@ -52,9 +57,19 @@ func GetUser(c *fiber.Ctx) error {
 
 func GetUserById(c *fiber.Ctx) error {
 	id := c.Params("id")
+	_, userData := fetchUserData([]string{id})
 	user := models.User{}
 	database.DB.Db.Where("user_id = ?", id).First(&user)
-	return c.Status(200).JSON(&user)
+
+	//  concat the two structs into one json response
+	userResponse := UserResponse{
+		Username: userData[0].Username,
+		User:     user,
+	}
+
+	fmt.Println(userResponse)
+
+	return c.Status(200).JSON(&userResponse)
 }
 
 func GetTopUsers(c *fiber.Ctx) error {

@@ -14,7 +14,7 @@
 <Navigation />
 <main class="flex items-center flex-col h-fit bg-maingrey">
 	<div class="mt-12 mb-10">
-		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> Tobias?</h1>
+		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
 	</div>
 	<div class="flex items-center">
 		<IconTray />
