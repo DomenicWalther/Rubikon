@@ -7,6 +7,8 @@
 	import { isSidebarOpen } from '$lib/store';
 	import { NavigationSidebar } from '$lib/components';
 
+	export let userCurrency = 0;
+
 	let navigation, sidebar;
 
 	function toggleMenu() {
@@ -54,7 +56,7 @@
 	<div>
 		<div class="rounded-full w-24 gap-2 bg-mainblue h-10 flex items-center">
 			<img src={Coin} alt="Text" class="h-10" />
-			<p class="text-white">10</p>
+			<p class="text-white">{userCurrency}</p>
 		</div>
 	</div>
 </nav>
