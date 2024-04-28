@@ -22,7 +22,6 @@
 	}
 </script>
 
-<Navigation />
 <section class="container">
 	<h1 class="font-bold text-4xl text-center">Gruppen</h1>
 	<Popover.Root>

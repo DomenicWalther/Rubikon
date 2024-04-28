@@ -5,7 +5,6 @@
 	let users = data.body;
 </script>
 
-<Navigation />
 <section class="container">
 	<h1 class="font-bold text-4xl text-center">Ranking</h1>
 	<div class="flex flex-col px-[410px] mt-20">

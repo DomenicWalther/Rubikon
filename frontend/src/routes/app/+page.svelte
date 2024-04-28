@@ -11,7 +11,6 @@
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
 
-<Navigation />
 <main class="flex items-center flex-col h-fit bg-maingrey">
 	<div class="mt-12 mb-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
