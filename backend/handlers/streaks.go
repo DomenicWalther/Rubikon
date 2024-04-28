@@ -51,6 +51,7 @@ func ProcessUserProgress(c *fiber.Ctx) error {
 	}
 	experienceGain := calculateUserExperience(rubikonLength.UserExperience, currentUserStreak.StreakLength)
 	updateUserExperience(experienceGain, userID)
+	updateUserCurrency(rubikonLength.UserExperience, userID)
 
 	response := new(processUserUpdateResponse)
 	response.StreakLength = currentUserStreak.StreakLength
@@ -64,6 +65,11 @@ func updateUserExperience(experience int, userID string) error {
 	return nil
 }
 
+func updateUserCurrency(currency int, userID string) error {
+	database.DB.Db.Model(&models.User{}).Where("user_id = ?", userID).Update("currency", gorm.Expr("currency + ?", currency/60))
+	return nil
+
+}
 func calculateUserExperience(experience, streakLength int) int {
 	experience = experience / 60
 	gain := int(math.Ceil(float64(experience) * math.Log(math.Pow(float64(streakLength), 1.2))))
