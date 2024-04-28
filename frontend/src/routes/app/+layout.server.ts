@@ -6,7 +6,6 @@ const response = await fetch(`${PUBLIC_BACKEND_URL}/Users/${user_id}`, {
 			method: 'GET',
 		});
 		const user_data = await response.json();
-        console.log(user_data)
         return {
             user: user_data
         }

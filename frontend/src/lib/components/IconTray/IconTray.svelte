@@ -9,9 +9,7 @@
 	let iconTrayButton, iconTray;
 
 	function toggleIconTrayVisibility() {
-		console.log('toggleIconTrayVisibility');
 		isIconTrayVisible = !isIconTrayVisible;
-		console.log(isIconTrayVisible);
 	}
 
 	onMount(() => {
