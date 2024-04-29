@@ -3,12 +3,11 @@ package models
 import (
 	"time"
 
-	"github.com/google/uuid"
 	"gorm.io/gorm"
 )
 
 type Group struct {
-	ID          uuid.UUID `json:"id" gorm:"type:uuid;default:gen_random_uuid();unique"`
+	ID          uint `json:"id" gorm:"primaryKey"`
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	DeletedAt   gorm.DeletedAt `gorm:"index"`

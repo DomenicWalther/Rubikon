@@ -4,7 +4,6 @@ import (
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
 	"github.com/gofiber/fiber/v2"
-	"github.com/google/uuid"
 )
 
 type GroupWithStatus struct {
@@ -51,7 +50,7 @@ func CreateGroup(c *fiber.Ctx) error {
 func JoinGroup(c *fiber.Ctx) error {
 	user := models.User{}
 	id := new(struct {
-		ID uuid.UUID `json:"group_id"`
+		ID int `json:"group_id"`
 	})
 	err := c.BodyParser(id)
 	if err != nil {
@@ -60,9 +59,10 @@ func JoinGroup(c *fiber.Ctx) error {
 		})
 	}
 
-	database.DB.Db.Where("user_id = ?", c.Locals("sub").(string)).First(&user)
+	database.DB.Db.Where("user_id = ?", id).First(&user)
+	database.DB.Db.Model(&user).Preload("Groups").Association("Groups").Find(&user.Groups)
 
-	group := models.Group{ID: id.ID}
+	group := models.Group{ID: uint(id.ID)}
 	database.DB.Db.Model(&user).Association("Groups").Append(&group)
 	database.DB.Db.Model(&group).Update("user_count", group.UserCount+1)
 
@@ -80,7 +80,7 @@ func userGroups(c *fiber.Ctx) *[]models.Group {
 func LeaveGroup(c *fiber.Ctx) error {
 	user := models.User{}
 	id := new(struct {
-		ID uuid.UUID `json:"group_id"`
+		ID int `json:"group_id"`
 	})
 	err := c.BodyParser(id)
 	if err != nil {
@@ -91,7 +91,7 @@ func LeaveGroup(c *fiber.Ctx) error {
 
 	database.DB.Db.Where("user_id = ?", c.Locals("sub").(string)).First(&user)
 
-	group := models.Group{ID: id.ID}
+	group := models.Group{ID: uint(id.ID)}
 	database.DB.Db.Model(&user).Association("Groups").Delete(&group)
 	database.DB.Db.Model(&group).Update("user_count", group.UserCount-1)
 
