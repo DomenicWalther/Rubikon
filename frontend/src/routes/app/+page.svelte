@@ -1,17 +1,17 @@
 <script>
-	import { NavigationBottom, IconTray } from '$lib/components';
+	import { NavigationBottom, Navigation, IconTray } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
 
 	export let data;
-	let userExperience = data.user.experience;
 
+	let userExperience = data.user.experience
 	let userLevel = Math.floor(Math.sqrt(userExperience / 10) + 1);
 	let currentLevelXP = userExperience - Math.pow(userLevel - 1, 2) * 10;
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
 
-
+<Navigation userCurrency={data.user.currency}/>
 <main class="flex items-center flex-col h-fit bg-maingrey">
 	<div class="mt-12 mb-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
