@@ -11,6 +11,7 @@
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
 
+
 <main class="flex items-center flex-col h-fit bg-maingrey">
 	<div class="mt-12 mb-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
@@ -27,7 +28,7 @@
 	></progress>
 	<p class="mt-2 font-medium text-base">{currentLevelXP}/{nextLevelXP} Erfahrungspunkte</p>
 	<p class="mt-4 font-medium text-xl">Aktuelles Level:{userLevel}</p>
-	<button class="bg-mainblue text-white font-medium rounded-full px-10 py-3 m-20 mx-auto">
+	<button class="bg-mainblue text-white font-medium rounded-full px-10 py-3 m-20">
 		<a href="/app/timer" class="text-xl">Reise starten</a>
 	</button>
 </main>

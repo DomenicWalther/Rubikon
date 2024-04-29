@@ -1,6 +1,6 @@
 <script>
 	export let type;
-	export let size = 24;
+	let size = 24;
 </script>
 
 {#if type && size}

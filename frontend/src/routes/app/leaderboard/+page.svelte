@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Navigation } from '$lib/components';
+	import { Navigation, NavigationBottom } from '$lib/components';
 
 	export let data;
 	let users = data.body;
@@ -18,3 +18,5 @@
 		{/each}
 	</div>
 </section>
+
+<NavigationBottom />
