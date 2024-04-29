@@ -1,5 +1,5 @@
 <script>
-	import { Navigation, NavigationBottom, IconTray } from '$lib/components';
+	import { NavigationBottom, IconTray } from '$lib/components';
 	import Roboter from '$lib/svg/roboter_lobby.svg';
 	import Blitz from '$lib/svg/blitz_lobby.svg';
 
