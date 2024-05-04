@@ -10,12 +10,12 @@
 	let currentLevelXP = userExperience - Math.pow(userLevel - 1, 2) * 10;
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
-
-<Navigation userCurrency={data.user.currency}/>
-<main class="flex items-center flex-col h-fit bg-maingrey">
-	<div class="mt-12 mb-10">
+<div class="flex flex-col h-screen">
+<Navigation userCurrency={data.user.currency} />
+<main class="flex items-center flex-col flex-grow ">
+	<div class="m-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
-	</div>
+	</div>	
 	<div class="flex items-center">
 		<IconTray />
 		<img src={Roboter} alt="text" class="w-40 h-70 mb-8 mr-6 ml-6" />
@@ -31,6 +31,7 @@
 	<button class="bg-mainblue text-white font-medium rounded-full px-10 py-3 m-20">
 		<a href="/app/timer" class="text-xl">Reise starten</a>
 	</button>
+	<NavigationBottom activeItem="home" />
 </main>
 
-<NavigationBottom />
+</div>
