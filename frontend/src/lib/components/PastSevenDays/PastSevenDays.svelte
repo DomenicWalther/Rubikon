@@ -7,6 +7,7 @@
 		isStreak: boolean;
 	}
 
+
 	export let streakLength: number = 1;
 	const weekdayNames = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
 	let allWeekDays: weekDayObject[] = [];
@@ -19,8 +20,11 @@
 		if (streakLength > 0) {
 			allWeekDays[i].isStreak = true;
 			streakLength -= 1;
+		} else {
+			break
 		}
 	}
+
 </script>
 
 <div class="flex gap-5">
