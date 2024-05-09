@@ -1,6 +1,6 @@
 export interface GroupRowProps {
 
-	id: number;
+	id: string ;
 	CreatedAt: string; // ISO 8601 Date string
 	UpdatedAt: string; // ISO 8601 Date string
 	DeletedAt: string | null; // ISO 8601 Date string or null
