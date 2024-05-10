@@ -2,7 +2,9 @@
 	import { Navigation, NavigationBottom } from '$lib/components';
 
 	export let data;
-	let users = data.body;
+	let leaderboardUsers = data.body;
+
+	
 </script>
 
 <section class="container p-0 flex flex-col">
@@ -20,7 +22,7 @@
 	</div>
 
 	<div class="flex flex-col items-center mt-1">
-		{#each users as user, index}
+		{#each leaderboardUsers as user, index}
 			<div class="flex gap-20 mt-8 justify-evenly items-center">
 				<h2>Platz {index + 1}</h2>
 				<img src={user.profile_image_url} alt="Profile Picture" class="w-10 h-10 rounded-full" />
@@ -28,6 +30,11 @@
 				<h4 class="text-right">Erfahrung: {user.experience}</h4>
 			</div>
 		{/each}
+	</div>
+	<div class="bg-mainyellow p-8 mt-10">
+		<img src={data.user.profile_image} alt="Profile Picture" class="w-10 h-10 rounded-full" />
+		<p>{data.user.username}</p>
+		<h4 class="text-right">Erfahrung: {data.user.experience}</h4>
 	</div>
 
 </section>
