@@ -23,7 +23,8 @@ type LeaderBoardUserInfo struct {
 }
 
 type UserResponse struct {
-	Username string `json:"username"`
+	Username     string `json:"username"`
+	ProfileImage string `json:"profile_image"`
 	models.User
 }
 
@@ -58,13 +59,15 @@ func GetUser(c *fiber.Ctx) error {
 func GetUserById(c *fiber.Ctx) error {
 	id := c.Params("id")
 	_, userData := fetchUserData([]string{id})
+	fmt.Println("User Data: %s", userData)
 	user := models.User{}
 	database.DB.Db.Where("user_id = ?", id).First(&user)
 
 	//  concat the two structs into one json response
 	userResponse := UserResponse{
-		Username: userData[0].Username,
-		User:     user,
+		Username:     userData[0].Username,
+		ProfileImage: userData[0].ProfileImageURL,
+		User:         user,
 	}
 
 	fmt.Println(userResponse)
