@@ -10,8 +10,9 @@
 	let currentLevelXP = userExperience - Math.pow(userLevel - 1, 2) * 10;
 	let nextLevelXP = Math.pow(userLevel, 2) * 10 - Math.pow(userLevel - 1, 2) * 10;
 </script>
-<div class="flex flex-col h-screen">
 <Navigation userCurrency={data.user.currency} />
+<div class="flex flex-col h-screen ">
+
 <main class="flex items-center flex-col flex-grow ">
 	<div class="m-10">
 		<h1 class="font-medium text-3xl text-center">Was machen wir <br /> {data.user.username}?</h1>
