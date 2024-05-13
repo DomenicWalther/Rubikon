@@ -3,5 +3,33 @@
 	console.log(data);
 </script>
 
-<p>Das ist eine Gruppenseite</p>
-<p>{data.group_id}</p>
+<section class="bg-gray-300 h-screen mt-0">
+	<div class="bg-white flex items-center mx-10 p-10 gap-5">
+		<img src="https://via.placeholder.com/150" alt="Group" class="w-20 rounded-lg h-20" />
+		<div class="flex flex-col gap-2">
+			<h2 class="font-semibold text-xl">Ziel: 20h in der Woche</h2>
+			<span class="text-gray-400 text-lg">Fangen wir zusammen an</span>
+			<div class="flex gap-5">
+				<span class="bg-mainorange px-2 py-1 text-sm text-white font-bold rounded-sm text-center"
+					>1328</span
+				>
+				<button class="px-2 py-1 bg-gray-200">Verlassen</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="bg-white mt-10 pt-2">
+		<div class=" flex justify-around mx-60">
+			<p class="text-2xl w-[250px] text-gray-400">Livestream</p>
+			<p class="text-2xl border-b-2 border-mainorange w-[250px] text-center">Nachrichten</p>
+		</div>
+	</div>
+
+	<div class="fixed bottom-0 w-screen flex justify-center bg-white py-5">
+		<input
+			type="text"
+			placeholder="Schreibe eine Nachricht"
+			class="bg-gray-200 w-80 py-4 px-8 rounded-3xl text-black placeholder-black placeholder:font-semibold"
+		/>
+	</div>
+</section>
