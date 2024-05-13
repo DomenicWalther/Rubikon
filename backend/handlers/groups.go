@@ -46,10 +46,6 @@ func CreateGroup(c *fiber.Ctx) error {
 	group.OwnerID = c.Locals("sub").(string)
 	database.DB.Db.Create(&group)
 
-	groupChat := models.GroupChat{
-		GroupID: group.ID,
-	}
-	database.DB.Db.Create(&groupChat)
 	return c.Status(200).JSON(group)
 }
 
