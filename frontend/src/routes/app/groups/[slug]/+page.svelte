@@ -1,11 +1,20 @@
-<script>
+<script lang="ts">
 	export let data;
-	console.log(data);
+	import { createNewGroupMessage } from '$lib/utils/apiHandlers/processGroupMessages';
+
+	let newMessage: string;
+
+	const submitMessage = () => {
+		createNewGroupMessage({
+			message: newMessage,
+			group_id: data.groupID
+		});
+	};
 </script>
 
 <section class="bg-gray-300 h-screen mt-0">
 	<div class="bg-white flex items-center mx-10 p-10 gap-5">
-		<img src="https://via.placeholder.com/150" alt="Group" class="w-20 rounded-lg h-20" />
+		<img src="https://picsum.photos/200" alt="Group" class="w-20 rounded-lg h-20" />
 		<div class="flex flex-col gap-2">
 			<h2 class="font-semibold text-xl">Ziel: 20h in der Woche</h2>
 			<span class="text-gray-400 text-lg">Fangen wir zusammen an</span>
@@ -24,12 +33,21 @@
 			<p class="text-2xl border-b-2 border-mainorange w-[250px] text-center">Nachrichten</p>
 		</div>
 	</div>
-
+	<div class="mx-40 flex flex-col gap-5 mt-5">
+		{#each data.messages as message}
+			<div class="flex items-center gap-5">
+				<img src="https://picsum.photos/50" alt="Group" class="w-10 rounded-full h-10" />
+				<p class="text-xl">{message.message}</p>
+			</div>
+		{/each}
+	</div>
 	<div class="fixed bottom-0 w-screen flex justify-center bg-white py-5">
 		<input
+			bind:value={newMessage}
 			type="text"
 			placeholder="Schreibe eine Nachricht"
 			class="bg-gray-200 w-80 py-4 px-8 rounded-3xl text-black placeholder-black placeholder:font-semibold"
 		/>
+		<button on:click={() => submitMessage()}>Send Message</button>
 	</div>
 </section>
