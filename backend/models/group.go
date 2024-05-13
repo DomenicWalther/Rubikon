@@ -19,7 +19,7 @@ type Group struct {
 	UserCount   int            `json:"userCount" gorm:"default:1"`
 	Users       []User         `gorm:"many2many:group_users;"`
 	Is_Public   bool           `json:"isPrivate" gorm:"not null;default:true"`
-	GroupChat   GroupChat
+	GroupChat   GroupChat      `gorm:"foreignkey:GroupID"`
 }
 
 type GroupChat struct {
