@@ -9,7 +9,7 @@ import (
 func GetChatMessages(c *fiber.Ctx) error {
 	groupID := c.Params("id")
 	var ChatMessages []models.GroupChatMessage
-	database.DB.Db.Where("group_id = ?", groupID).Order("created_at DESC").Limit(20).Find(&ChatMessages)
+	database.DB.Db.Where("group_id = ?", groupID).Order("created_at ASC").Limit(20).Find(&ChatMessages)
 
 	return c.Status(200).JSON(ChatMessages)
 }
