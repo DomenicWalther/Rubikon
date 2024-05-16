@@ -3,6 +3,7 @@
 	import { createNewGroupMessage } from '$lib/utils/apiHandlers/processGroupMessages';
 
 	let newMessage: string;
+	console.log("Fixing test issue")
 
 	const submitMessage = () => {
 		createNewGroupMessage({
