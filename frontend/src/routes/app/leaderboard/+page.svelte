@@ -16,7 +16,7 @@
 </script>
 
 <section class="container p-0 flex flex-col">
-	<div class="bg-mainyellow flex justify-center p-4 mb-1">
+	<div class="bg-mainyellow flex justify-center p-5 mb-1">
 		<h1 class="font-medium text-3xl">Ranking</h1>
 	</div>
 	<Tabs.Root value="lastMonth" class="flex flex-col justify-evenly items-center mt-3">
@@ -58,9 +58,7 @@
 		</div>
 	</div>
 
-	
-
+	<NavigationBottom activeItem="leaderboard" />
 
 </section>
 
-<NavigationBottom activeItem="leaderboard" />

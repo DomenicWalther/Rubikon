@@ -5,7 +5,7 @@
 </script>
 
 
-	<nav class="bg-mainblue min-w-[400px] max-w-prose text-white font-bold py-2 rounded-full fixed m-auto left-0 right-0 bottom-0">
+	<nav class="bg-mainblue min-w-[400px] max-w-prose text-white font-bold py-2 fixed m-auto left-0 right-0 bottom-0">
 		<ul class="flex justify-around items-center py-5 relativ">
 			<NavigationBottomItem label="Home" link="/app" svgType="Home" isActive={"home" == activeItem} />
 
