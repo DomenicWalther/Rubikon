@@ -28,8 +28,10 @@
 	<Popover.Root>
 		<Popover.Trigger>Gruppe erstellen</Popover.Trigger>
 		<Popover.Content class="p-5 w-80 flex gap-5 flex-col rounded-lg shadow-xl">
-			<div class="flex gap-20">
-				<img src={newGroupImageUrl} alt="Group Picture" class="w-10 h-10 rounded-full" />
+			<div class="flex gap-7">
+				<div class="rounded-sm border-2 border-dashed border-mainorange w-10 h-10">
+					<img src={newGroupImageUrl} alt="Group Picture" class="w-10 h-10 invisible" />
+				</div>
 				<input
 					type="text"
 					bind:value={newGroupName}
@@ -51,8 +53,7 @@
 			</div>
 			<button
 				class="text-white font-bold bg-mainorange rounded-full py-2 text-center"
-				on:click={() => createGroup()}>Gruppe hinzufügen</button
-			>
+				on:click={() => createGroup()}>Gruppe hinzufügen</button>
 		</Popover.Content>
 	</Popover.Root>
 
@@ -73,13 +74,13 @@
 		{#each groups as group}
 			{#if !group.is_member}
 				<div class="flex gap-10 mt-5 w-96 content-around items-center">
-					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-full" />
+					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-md" />
 					<div>
 						<h3>{group.name}</h3>
 						<h4>{group.description}</h4>
 					</div>
 					<button
-						class="bg-mainorange text-white font-bold px-5 py-2"
+						class="bg-mainorange text-white font-bold px-5 py-2 rounded-sm"
 						on:click={() => processJoinGroup(group.id)}>Beitreten</button
 					>
 				</div>
