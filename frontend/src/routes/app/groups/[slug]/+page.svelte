@@ -1,9 +1,11 @@
 <script lang="ts">
 	export let data;
 	import { createNewGroupMessage } from '$lib/utils/apiHandlers/processGroupMessages';
+	import { currentGroupChatMessages } from '$lib/store.js';
 
 	let newMessage: string;
 
+	$currentGroupChatMessages = data.messages;
 	const submitMessage = () => {
 		createNewGroupMessage({
 			message: newMessage,
@@ -34,7 +36,7 @@
 		</div>
 	</div>
 	<div class="mx-40 flex flex-col gap-5 mt-5">
-		{#each data.messages as message}
+		{#each $currentGroupChatMessages as message}
 			<div class="flex items-center gap-5">
 				<img src="https://picsum.photos/50" alt="Group" class="w-10 rounded-full h-10" />
 				<p class="text-xl">{message.message}</p>
