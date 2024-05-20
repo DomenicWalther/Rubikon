@@ -1,16 +1,17 @@
 <script lang="ts">
-	import { Navigation, GroupRow } from '$lib/components';
+	import { GroupRow } from '$lib/components';
+	import { currentGroups } from '$lib/store';
 	import * as Popover from '$lib/components/shadcn/ui/popover';
 	import { processGroupCreation, processJoinGroup } from '$lib/utils/apiHandlers/processGroups.js';
 	export let data;
-	let groups = data.body;
-	console.log(groups)
+	$currentGroups = data.body;
+	console.log(data.body);
 
 	let newGroupImageUrl = 'https://via.placeholder.com/150';
 	let newGroupName: string;
 	let newGroupIsPrivate: boolean;
 	let newGroupDescription: string;
-	const hasMember = groups.some((group) => group.is_member);
+	const hasMember = $currentGroups.some((group) => group.is_member);
 
 	async function createGroup() {
 		const group = {
@@ -20,6 +21,7 @@
 			imageURL: newGroupImageUrl
 		};
 		await processGroupCreation(group);
+		$currentGroups = [...$currentGroups, group];
 	}
 </script>
 
@@ -53,14 +55,15 @@
 			</div>
 			<button
 				class="text-white font-bold bg-mainorange rounded-full py-2 text-center"
-				on:click={() => createGroup()}>Gruppe hinzufügen</button>
+				on:click={() => createGroup()}>Gruppe hinzufügen</button
+			>
 		</Popover.Content>
 	</Popover.Root>
 
 	<div>
 		<p class="text-2xl font-bold mt-10">Meine Gruppen</p>
 		{#if hasMember}
-			{#each groups as group}
+			{#each $currentGroups as group}
 				{#if group.is_member}
 					<GroupRow {group} />
 				{/if}
@@ -71,7 +74,7 @@
 
 		<p class="text-2xl font-bold mt-10">Weitere Gruppen</p>
 		<input type="text" placeholder="Suchen" />
-		{#each groups as group}
+		{#each $currentGroups as group}
 			{#if !group.is_member}
 				<div class="flex gap-10 mt-5 w-96 content-around items-center">
 					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-md" />

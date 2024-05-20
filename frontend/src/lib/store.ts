@@ -8,9 +8,22 @@ interface GroupChatMessage {
 	user_id: string;
 }
 
+interface Group {
+	CreatedAt: string;
+	DeletedAt: string | null;
+	UpdatedAt: string;
+	description: string;
+	id: string;
+	imageURL: string;
+	isPrivate: boolean;
+	is_member: boolean;
+	name: string;
+	owner_id: string,
+	userCount: number;
+}
+
 
 export const isSidebarOpen: Writable<boolean> = writable(false);
 export const isTimerRunning: Writable<boolean> = writable(false);
 export const currentGroupChatMessages: Writable<Array<GroupChatMessage>> = writable([]);
-export const userJoinedGroups: Writable<Array<string>> = writable([]);
-export const userNewGroups: Writable<Array<string>> = writable([]);
+export const currentGroups: Writable<Array<Group>> = writable([]);
