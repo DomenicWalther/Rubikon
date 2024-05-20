@@ -11,6 +11,11 @@
 			message: newMessage,
 			group_id: data.groupID
 		});
+		$currentGroupChatMessages = [
+			...$currentGroupChatMessages,
+			{ message: newMessage, group_id: data.groupID }
+		];
+		newMessage = '';
 	};
 </script>
 
@@ -35,13 +40,15 @@
 			<p class="text-2xl border-b-2 border-mainorange w-[250px] text-center">Nachrichten</p>
 		</div>
 	</div>
-	<div class="mx-40 flex flex-col gap-5 mt-5">
-		{#each $currentGroupChatMessages as message}
-			<div class="flex items-center gap-5">
-				<img src="https://picsum.photos/50" alt="Group" class="w-10 rounded-full h-10" />
-				<p class="text-xl">{message.message}</p>
-			</div>
-		{/each}
+	<div class="mx-40 flex flex-col gap-5 mt-5 overflow-y-auto h-full flex-col-reverse">
+		<div>
+			{#each $currentGroupChatMessages as message}
+				<div class="flex items-center gap-5">
+					<img src="https://picsum.photos/50" alt="Group" class="w-10 rounded-full h-10" />
+					<p class="text-xl">{message.message}</p>
+				</div>
+			{/each}
+		</div>
 	</div>
 	<div class="fixed bottom-0 w-screen flex justify-center bg-white py-5">
 		<input
