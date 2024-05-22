@@ -15,4 +15,5 @@ func GetUsersWithHighestExperience(limit int) []models.User {
 	topUsers := []models.User{}
 	database.DB.Db.Order("experience desc").Limit(limit).Find(&topUsers)
 
+	return topUsers
 }

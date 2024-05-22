@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"github.com/domenicwalther/rubikon/backend/data"
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
 	"github.com/gofiber/fiber/v2"
@@ -12,12 +13,9 @@ type GroupWithStatus struct {
 	IsMember bool `json:"is_member"`
 }
 
-func GetGroups(c *fiber.Ctx) error {
-	var groups []models.Group
-	var userHasGroups *[]models.Group
-	userHasGroups = userGroups(c)
-	database.DB.Db.Find(&groups)
-
+func HandleGetGroups(c *fiber.Ctx) error {
+	userHasGroups := userGroups(c)
+	groups := data.GetAllGroups()
 	resultGroups := make([]GroupWithStatus, 0, len(groups))
 
 	for _, group := range groups {
@@ -36,7 +34,7 @@ func GetGroups(c *fiber.Ctx) error {
 	return c.Status(200).JSON(resultGroups)
 }
 
-func CreateGroup(c *fiber.Ctx) error {
+func HandleCreateGroup(c *fiber.Ctx) error {
 	group := new(models.Group)
 	if err := c.BodyParser(group); err != nil {
 		return c.Status(400).JSON(fiber.Map{
@@ -44,13 +42,13 @@ func CreateGroup(c *fiber.Ctx) error {
 		})
 	}
 	group.OwnerID = c.Locals("sub").(string)
-	database.DB.Db.Create(&group)
+	data.CreateNewGroup(group)
+	data.UserJoinGroup(&models.User{User_ID: group.OwnerID}, group)
 
 	return c.Status(200).JSON(group)
 }
 
 func JoinGroup(c *fiber.Ctx) error {
-	user := models.User{}
 	id := new(struct {
 		ID uuid.UUID `json:"group_id"`
 	})
@@ -61,12 +59,13 @@ func JoinGroup(c *fiber.Ctx) error {
 		})
 	}
 
-	database.DB.Db.Where("user_id = ?", c.Locals("sub").(string)).First(&user)
+	userID := c.Locals("sub").(string)
+	user := data.GetUserById(userID)
 	database.DB.Db.Model(&user).Preload("Groups").Association("Groups").Find(&user.Groups)
 
 	group := models.Group{ID: id.ID}
-	database.DB.Db.Model(&user).Association("Groups").Append(&group)
-	database.DB.Db.Model(&group).Update("user_count", group.UserCount+1)
+	data.UserJoinGroup(&user, &group)
+	data.UpdateGroupUserCount(&group, 1)
 
 	return c.Status(200).JSON(&user)
 }
@@ -80,7 +79,6 @@ func userGroups(c *fiber.Ctx) *[]models.Group {
 }
 
 func LeaveGroup(c *fiber.Ctx) error {
-	user := models.User{}
 	id := new(struct {
 		ID uuid.UUID `json:"group_id"`
 	})
@@ -91,11 +89,10 @@ func LeaveGroup(c *fiber.Ctx) error {
 		})
 	}
 
-	database.DB.Db.Where("user_id = ?", c.Locals("sub").(string)).First(&user)
-
+	user := data.GetUserById(c.Locals("sub").(string))
 	group := models.Group{ID: id.ID}
-	database.DB.Db.Model(&user).Association("Groups").Delete(&group)
-	database.DB.Db.Model(&group).Update("user_count", group.UserCount-1)
+	data.UserLeaveGroup(&user, &group)
+	data.UpdateGroupUserCount(&group, -1)
 
 	return c.Status(200).JSON(&user)
 }
