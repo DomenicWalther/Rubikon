@@ -8,14 +8,13 @@ import (
 
 func setupRoutes(app *fiber.App) {
 
-	app.Post("/Users", handlers.CreateUser)
+	app.Post("/Users", handlers.HandleCreateUser)
 	app.Post("/foo", middleware.JWTMiddleware(), func(c *fiber.Ctx) error {
 		return c.SendString(c.Locals("sub").(string) + " " + c.Locals("sid").(string))
 	})
-	app.Get("/User", handlers.GetUser)
 	app.Post("/Users/process-user-progress", middleware.JWTMiddleware(), handlers.ProcessUserProgress)
-	app.Get("/Users/top-users", handlers.GetTopUsers)
-	app.Get("/Users/:id", handlers.GetUserById)
+	app.Get("/Users/top-users", handlers.HandleGetTopUsers)
+	app.Get("/Users/:id", handlers.HandleGetUserById)
 
 	app.Get("/Groups/chat/:id", handlers.GetChatMessages)
 	app.Get("/Groups/:id", handlers.GetGroups)

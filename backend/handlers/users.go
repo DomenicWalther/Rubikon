@@ -7,6 +7,7 @@ import (
 	"os"
 	"strings"
 
+	"github.com/domenicwalther/rubikon/backend/data"
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
 	"github.com/go-jose/go-jose/v3/json"
@@ -28,7 +29,7 @@ type UserResponse struct {
 	models.User
 }
 
-func CreateUser(c *fiber.Ctx) error {
+func HandleCreateUser(c *fiber.Ctx) error {
 
 	type Response struct {
 		Data struct {
@@ -49,36 +50,23 @@ func CreateUser(c *fiber.Ctx) error {
 	return c.Status(200).JSON(user)
 }
 
-func GetUser(c *fiber.Ctx) error {
-	result := map[string]interface{}{}
-
-	database.DB.Db.Model(&models.User{}).First(&result)
-	return c.Status(200).JSON(&result)
-}
-
-func GetUserById(c *fiber.Ctx) error {
+func HandleGetUserById(c *fiber.Ctx) error {
 	id := c.Params("id")
 	_, userData := fetchUserData([]string{id})
-	fmt.Println("User Data: %s", userData)
-	user := models.User{}
-	database.DB.Db.Where("user_id = ?", id).First(&user)
+	user := data.GetUserById(id)
 
-	//  concat the two structs into one json response
 	userResponse := UserResponse{
 		Username:     userData[0].Username,
 		ProfileImage: userData[0].ProfileImageURL,
 		User:         user,
 	}
 
-	fmt.Println(userResponse)
-
 	return c.Status(200).JSON(&userResponse)
 }
 
-func GetTopUsers(c *fiber.Ctx) error {
-	var topUsers []models.User
-	database.DB.Db.Order("experience desc").Limit(10).Find(&topUsers)
+func HandleGetTopUsers(c *fiber.Ctx) error {
 
+	topUsers := data.GetUsersWithHighestExperience(10)
 	userIds := make([]string, 0, len(topUsers))
 	for _, user := range topUsers {
 		userIds = append(userIds, user.User_ID)
