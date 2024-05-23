@@ -5,6 +5,8 @@ interface MessageData {
     message: string;
     group_id: string;
     channelID: string;
+    username: string,
+    profile_image_url: string,
 }
 
 export const createNewGroupMessage = async(messageData: MessageData) => {

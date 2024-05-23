@@ -13,11 +13,14 @@
 	const channelID = 'group-chat-' + data.groupID;
 	var channel = pusher.subscribe(channelID);
 	channel.bind('new-message', function (data) {
+		console.log(data);
 		$currentGroupChatMessages = [
 			...$currentGroupChatMessages,
 			{
 				message: data.message,
-				group_id: data.group_id
+				group_id: data.group_id,
+				username: data.username,
+				profile_image_url: data.profile_image_url
 			}
 		];
 	});
@@ -26,10 +29,13 @@
 		createNewGroupMessage({
 			message: newMessage,
 			group_id: data.groupID,
-			channelID
+			channelID,
+			username: data.user.username,
+			profile_image_url: data.user.profile_image
 		});
 		newMessage = '';
 	};
+	console.log(data);
 </script>
 
 <section class="bg-gray-300 h-screen mt-0">
@@ -57,7 +63,10 @@
 		<div>
 			{#each $currentGroupChatMessages as message}
 				<div class="flex items-center gap-5">
-					<img src="https://picsum.photos/50" alt="Group" class="w-10 rounded-full h-10" />
+					<div class="flex items-center gap-2">
+						<img src={message.profile_image_url} alt="Group" class="w-10 rounded-full h-10" />
+						<p class="text-sm text-gray-500">{message.username}</p>
+					</div>
 					<p class="text-xl">{message.message}</p>
 				</div>
 			{/each}
