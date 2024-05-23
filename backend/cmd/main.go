@@ -1,9 +1,12 @@
 package main
 
 import (
+	"os"
+
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
+	"github.com/pusher/pusher-http-go/v5"
 )
 
 func main() {
@@ -14,7 +17,15 @@ func main() {
 		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
 	}))
 
-	setupRoutes(app)
+	pusherClient := pusher.Client{
+		AppID:   os.Getenv("PUSHER_APP_ID"),
+		Key:     os.Getenv("PUSHER_APP_KEY"),
+		Secret:  os.Getenv("PUSHER_APP_SECRET"),
+		Cluster: "eu",
+		Secure:  true,
+	}
+
+	setupRoutes(app, pusherClient)
 
 	app.Listen(":3000")
 }
