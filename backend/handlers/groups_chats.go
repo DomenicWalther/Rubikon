@@ -1,9 +1,11 @@
 package handlers
 
 import (
+	"github.com/domenicwalther/rubikon/backend/data"
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
 	"github.com/gofiber/fiber/v2"
+	"github.com/pusher/pusher-http-go/v5"
 )
 
 func GetChatMessages(c *fiber.Ctx) error {
@@ -22,7 +24,25 @@ func CreateNewChatMessage(c *fiber.Ctx) error {
 		})
 	}
 	message.UserID = c.Locals("sub").(string)
-	database.DB.Db.Create(&message)
-
+	data.CreateChatMessage(*message)
 	return c.Status(200).JSON(message)
+}
+
+type MessageData struct {
+	Message   string `json:"message"`
+	Group_id  string `json:"group_id"`
+	ChannelID string `json:"channelID"`
+}
+
+func HandleCreateChatMessage(c *fiber.Ctx, pusherClient *pusher.Client) error {
+	var data MessageData
+
+	if err := c.BodyParser(&data); err != nil {
+		return err
+	}
+
+	CreateNewChatMessage(c)
+	pusherClient.Trigger(data.ChannelID, "new-message", data)
+
+	return c.Status(200).JSON(data)
 }
