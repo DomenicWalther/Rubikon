@@ -2,19 +2,32 @@
 	export let data;
 	import { createNewGroupMessage } from '$lib/utils/apiHandlers/processGroupMessages';
 	import { currentGroupChatMessages } from '$lib/store.js';
+	import Pusher from 'pusher-js';
 
 	let newMessage: string;
 
+	let pusher = new Pusher('4b5ad963b27dd5a727d3', {
+		cluster: 'eu'
+	});
+
+	const channelID = 'group-chat-' + data.groupID;
+	var channel = pusher.subscribe(channelID);
+	channel.bind('new-message', function (data) {
+		$currentGroupChatMessages = [
+			...$currentGroupChatMessages,
+			{
+				message: data.message,
+				group_id: data.group_id
+			}
+		];
+	});
 	$currentGroupChatMessages = data.messages;
 	const submitMessage = () => {
 		createNewGroupMessage({
 			message: newMessage,
-			group_id: data.groupID
+			group_id: data.groupID,
+			channelID
 		});
-		$currentGroupChatMessages = [
-			...$currentGroupChatMessages,
-			{ message: newMessage, group_id: data.groupID }
-		];
 		newMessage = '';
 	};
 </script>
@@ -40,7 +53,7 @@
 			<p class="text-2xl border-b-2 border-mainorange w-[250px] text-center">Nachrichten</p>
 		</div>
 	</div>
-	<div class="mx-40 flex flex-col gap-5 mt-5 overflow-y-auto h-full flex-col-reverse">
+	<div class="mx-40 flex flex-col gap-5 mt-5 overflow-y-auto flex-col-reverse h-[600px]">
 		<div>
 			{#each $currentGroupChatMessages as message}
 				<div class="flex items-center gap-5">
