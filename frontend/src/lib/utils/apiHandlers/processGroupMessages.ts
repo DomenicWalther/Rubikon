@@ -4,11 +4,12 @@ import { PUBLIC_BACKEND_URL } from "$env/static/public";
 interface MessageData {
     message: string;
     group_id: string;
+    channelID: string;
 }
 
 export const createNewGroupMessage = async(messageData: MessageData) => {
     
-        const response = await fetch(`${PUBLIC_BACKEND_URL}/Groups/chat/addMessage`, {
+        const response = await fetch(`${PUBLIC_BACKEND_URL}/Groups/chat/addMessagePusher`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
