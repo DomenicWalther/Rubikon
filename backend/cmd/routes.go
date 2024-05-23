@@ -4,9 +4,10 @@ import (
 	"github.com/domenicwalther/rubikon/backend/handlers"
 	"github.com/domenicwalther/rubikon/backend/middleware"
 	"github.com/gofiber/fiber/v2"
+	"github.com/pusher/pusher-http-go/v5"
 )
 
-func setupRoutes(app *fiber.App) {
+func setupRoutes(app *fiber.App, pusherClient pusher.Client) {
 
 	app.Post("/Users", handlers.HandleCreateUser)
 	app.Post("/foo", middleware.JWTMiddleware(), func(c *fiber.Ctx) error {
@@ -23,4 +24,7 @@ func setupRoutes(app *fiber.App) {
 	app.Delete("/Groups/leave", middleware.JWTMiddleware(), handlers.LeaveGroup)
 
 	app.Post("/Groups/chat/addMessage", middleware.JWTMiddleware(), handlers.CreateNewChatMessage)
+	app.Post("/Groups/chat/addMessagePusher", middleware.JWTMiddleware(), func(c *fiber.Ctx) error {
+		return handlers.HandleCreateChatMessage(c, &pusherClient)
+	})
 }
