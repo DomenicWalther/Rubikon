@@ -52,6 +52,7 @@
     "clerk-sveltekit": "^0.4.1",
     "clsx": "^2.1.0",
     "mode-watcher": "^0.3.0",
+    "pusher-js": "^8.4.0-rc2",
     "svelte-radix": "^1.1.0",
     "svelte-sonner": "^0.3.19",
     "tailwind-merge": "^2.2.2",
