@@ -2,16 +2,25 @@
 	import * as Card from '$lib/components/shadcn/ui/card';
 	import { processUserBuySkin } from '$lib/utils/apiHandlers/processSkins.js';
 	import SkinImport from '$lib/Svg/Skins/SkinImport.svelte';
+	import { Toaster } from '$lib/components/shadcn/ui/sonner';
+	import { toast } from 'svelte-sonner';
+
 	const skin_types = ['hats', 'eyes', 'mouths'];
 	export let data;
-	console.log(data);
+	console.log(data.skins);
 
 	const buySkin = async (skin_id) => {
 		const response = await processUserBuySkin(skin_id);
-		console.log(response);
+		if (response.message !== undefined) {
+			toast.error(response.message);
+		} else {
+			toast.success('Skin gekauft');
+		}
+		data.skins = data.skins.filter((skin) => skin.ID !== skin_id);
 	};
 </script>
 
+<Toaster richColors />
 {#each skin_types as skin_type}
 	<h2 class="text-2xl font-bold text-black">{skin_type}</h2>
 	<div class="flex gap-20">

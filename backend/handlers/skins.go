@@ -40,14 +40,14 @@ func HandleBuySkin(c *fiber.Ctx) error {
 	currentUserLevel := calculateUserLevel(user.Experience)
 	if currentUserLevel < skin.RequiredLevel {
 		return c.Status(400).JSON(fiber.Map{
-			"message": "User level too low",
+			"message": "Dein Level ist zu niedrig um diesen Skin zu kaufen",
 		})
 	}
 
 	err = data.UpdateUserCurrency(&user, -skin.Price)
 	if err != nil {
 		return c.Status(400).JSON(fiber.Map{
-			"message": "Not enough currency",
+			"message": "Du hast nicht genug Münzen um diesen Skin zu kaufen",
 		})
 	}
 	data.UserBuySkin(&user, &skin)
