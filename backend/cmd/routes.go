@@ -29,4 +29,5 @@ func setupRoutes(app *fiber.App, pusherClient pusher.Client) {
 	})
 
 	app.Get("/Skins/Shop", handlers.HandleGetShopSkins)
+	app.Post("Skins/Shop", middleware.JWTMiddleware(), handlers.HandleBuySkin)
 }
