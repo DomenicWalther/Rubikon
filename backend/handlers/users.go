@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"io"
+	"math"
 	"net/http"
 	"os"
 	"strings"
@@ -145,4 +146,9 @@ func fetchUserData(userIds []string) (error, []LeaderBoardUserInfo) {
 	}
 	fmt.Println(users)
 	return nil, users
+}
+
+func calculateUserLevel(experience int) int {
+	level := math.Floor(math.Sqrt(float64(experience)/10) + 1)
+	return int(level)
 }

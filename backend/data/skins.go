@@ -11,6 +11,13 @@ func GetAllSkins() []models.Skin {
 	return skins
 }
 
+func GetAllUserSkins(userID string) []models.Skin {
+	user := GetUserById(userID)
+	skins := []models.Skin{}
+	database.DB.Db.Model(&user).Association("Skins").Find(&skins)
+	return skins
+}
+
 func UserBuySkin(user *models.User, skin *models.Skin) {
 	database.DB.Db.Model(&user).Association("Skins").Append(skin)
 }

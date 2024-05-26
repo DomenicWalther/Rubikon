@@ -1,6 +1,8 @@
 package data
 
 import (
+	"errors"
+
 	"github.com/domenicwalther/rubikon/backend/database"
 	"github.com/domenicwalther/rubikon/backend/models"
 )
@@ -16,4 +18,13 @@ func GetUsersWithHighestExperience(limit int) []models.User {
 	database.DB.Db.Order("experience desc").Limit(limit).Find(&topUsers)
 
 	return topUsers
+}
+
+func UpdateUserCurrency(user *models.User, amount int) error {
+	if user.Currency+amount < 0 {
+		return errors.New("not enough currency")
+	}
+	user.Currency += amount
+	database.DB.Db.Save(user)
+	return nil
 }

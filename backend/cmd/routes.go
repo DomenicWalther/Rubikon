@@ -28,6 +28,6 @@ func setupRoutes(app *fiber.App, pusherClient pusher.Client) {
 		return handlers.HandleCreateChatMessage(c, &pusherClient)
 	})
 
-	app.Get("/Skins/Shop", handlers.HandleGetShopSkins)
+	app.Get("/Skins/Shop/:id", handlers.HandleGetShopSkins)
 	app.Post("Skins/Shop", middleware.JWTMiddleware(), handlers.HandleBuySkin)
 }
