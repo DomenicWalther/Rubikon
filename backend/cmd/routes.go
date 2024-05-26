@@ -27,4 +27,6 @@ func setupRoutes(app *fiber.App, pusherClient pusher.Client) {
 	app.Post("/Groups/chat/addMessagePusher", middleware.JWTMiddleware(), func(c *fiber.Ctx) error {
 		return handlers.HandleCreateChatMessage(c, &pusherClient)
 	})
+
+	app.Get("/Skins/Shop", handlers.HandleGetShopSkins)
 }
