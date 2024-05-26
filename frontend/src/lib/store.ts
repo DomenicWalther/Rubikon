@@ -21,9 +21,17 @@ interface Group {
 	owner_id: string,
 	userCount: number;
 }
+interface Skin {
+	activeArms: string | null;
+	activeBGAnimations: string | null;
+	activeEyes: string | null;
+	activeHats: string | null;
+	activeMouths: string | null;
+}
 
 
 export const isSidebarOpen: Writable<boolean> = writable(false);
 export const isTimerRunning: Writable<boolean> = writable(false);
 export const currentGroupChatMessages: Writable<Array<GroupChatMessage>> = writable([]);
 export const currentGroups: Writable<Array<Group>> = writable([]);
+export const activeSkin: Writable<Skin> = writable({} as Skin);
