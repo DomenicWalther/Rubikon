@@ -7,7 +7,6 @@
 
 	const skin_types = ['hats', 'eyes', 'mouths'];
 	export let data;
-	console.log(data.skins);
 
 	const buySkin = async (skin_id) => {
 		const response = await processUserBuySkin(skin_id);
