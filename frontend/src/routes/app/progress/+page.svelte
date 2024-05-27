@@ -4,7 +4,6 @@
 
 	export let data
 	console.log(data.user)
-	import Lightning from '$lib/Svg/Lightning.svelte';
 
 </script>
 
@@ -17,8 +16,8 @@
 			<h2 class="flex justify-center text-3xl font-medium ">{data.user.username.toUpperCase()}'s Fortschritt</h2>
 		</div>
 		<div class="mt-10">
-			<ProgressRank currentRank="Rank_1"/>
+				<ProgressRank currentRank="Rank_1"/>
 		</div>
 	</section>
-	<NavigationBottom/>
+		<NavigationBottom/>
 </main>	
