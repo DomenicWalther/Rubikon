@@ -14,8 +14,11 @@
 			toast.error(response.message);
 		} else {
 			toast.success('Skin gekauft');
+			data.skins = data.skins.filter((skin) => skin.ID !== skin_id);
 		}
-		data.skins = data.skins.filter((skin) => skin.ID !== skin_id);
+		
+		
+
 	};
 </script>
 
