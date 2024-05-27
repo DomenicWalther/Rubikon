@@ -24,6 +24,13 @@ func HandleGetShopSkins(c *fiber.Ctx) error {
 	return c.Status(200).JSON(skins)
 }
 
+func HandleGetOwnedSkins(c *fiber.Ctx) error {
+	userID := c.Params("id")
+	userSkins := data.GetAllUserSkins(userID)
+	return c.Status(200).JSON(userSkins)
+
+}
+
 func HandleBuySkin(c *fiber.Ctx) error {
 	id := new(struct {
 		ID uuid.UUID `json:"skinID"`

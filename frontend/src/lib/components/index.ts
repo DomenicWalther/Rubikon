@@ -5,3 +5,4 @@ export { NavigationBottom } from './NavigationBottom';
 export { NavigationSidebar } from './NavigationSidebar';
 export { GroupRow } from './GroupRow';
 export { IconTray } from './IconTray';
+export { RoboterSkin} from './RoboterSkin'
