@@ -26,7 +26,7 @@
 </script>
 
 <section class="container">
-	<h1 class="font-bold text-4xl text-center">Gruppen</h1>
+	<h1 class="font-medium text-3xl text-center">Gruppen</h1>
 	<Popover.Root>
 		<Popover.Trigger>Gruppe erstellen</Popover.Trigger>
 		<Popover.Content class="p-5 w-80 flex gap-5 flex-col rounded-lg shadow-xl">
@@ -60,8 +60,7 @@
 		</Popover.Content>
 	</Popover.Root>
 
-	<div>
-		<p class="text-2xl font-bold mt-10">Meine Gruppen</p>
+		<p class="text-2xl font-medium mt-10 mb-4">Meine Gruppen</p>
 		{#if hasMember}
 			{#each $currentGroups as group}
 				{#if group.is_member}
@@ -72,22 +71,27 @@
 			<p>Noch keine Gruppe erstellt oder beigetreten</p>
 		{/if}
 
-		<p class="text-2xl font-bold mt-10">Weitere Gruppen</p>
-		<input type="text" placeholder="Suchen" />
+		<p class="text-2xl font-medium mt-10">Weitere Gruppen</p>
+		<input type="text" placeholder="Suchen" class="mb-1 font-medium" />
+
 		{#each $currentGroups as group}
-			{#if !group.is_member}
-				<div class="flex gap-10 mt-5 w-96 content-around items-center">
+		{#if !group.is_member}
+			<div class="flex items-center mb-6 mt-1">
+				<div class="flex items-center gap-6">
 					<img src="https://via.placeholder.com/150" alt="Group" class="w-10 h-10 rounded-md" />
-					<div>
-						<h3>{group.name}</h3>
-						<h4>{group.description}</h4>
+					<div class="flex flex-col min-w-[170px] max-w-[170px] mr-1">
+						<h3 class="font-medium truncate">{group.name}</h3>
+						<h4 class="truncate">{group.description}</h4>
 					</div>
-					<button
-						class="bg-mainorange text-white font-bold px-5 py-2 rounded-sm"
-						on:click={() => processJoinGroup(group.id)}>Beitreten</button
-					>
 				</div>
-			{/if}
+				<div class=" bg-mainorange w-12 py-2 text-white font-bold rounded-sm flex justify-center mr-4">
+					<h3 class="truncate">{group.userCount}</h3>
+				</div>
+					<button class="bg-mainorange text-white font-bold px-5 py-2 rounded-sm flex"
+					on:click={() => processJoinGroup(group.id)}>Beitreten</button>
+			</div>
+		{/if}
 		{/each}
-	</div>
 </section>
+
+
